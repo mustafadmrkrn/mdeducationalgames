@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Klavye Oyunları - MD Education Games</title>
+<!-- Google Fonts: Nunito Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300..900;1,6..12,300..900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration verbatim from Design System -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-fixed-variant": "#005137",
+            "primary-fixed": "#ffd9de",
+            "secondary-fixed-dim": "#45dfa4",
+            "inverse-surface": "#e1e1f1",
+            "on-error": "#690005",
+            "surface-variant": "#323440",
+            "tertiary-fixed": "#c4e7ff",
+            "on-surface": "#e1e1f1",
+            "tertiary-fixed-dim": "#7bd0ff",
+            "error": "#ffb4ab",
+            "outline-variant": "#5c3f44",
+            "secondary-container": "#00bd85",
+            "on-primary": "#660026",
+            "on-tertiary": "#00354a",
+            "surface-container-high": "#272935",
+            "on-background": "#e1e1f1",
+            "on-primary-container": "#5a0020",
+            "surface-container-low": "#191b26",
+            "on-secondary-fixed": "#002114",
+            "surface-container-lowest": "#0b0e18",
+            "inverse-primary": "#bc004c",
+            "on-tertiary-fixed": "#001e2c",
+            "outline": "#ab888d",
+            "surface": "#11131e",
+            "secondary-fixed": "#68fcbf",
+            "inverse-on-surface": "#2e303c",
+            "on-error-container": "#ffdad6",
+            "secondary": "#45dfa4",
+            "surface-tint": "#ffb2be",
+            "tertiary": "#7bd0ff",
+            "surface-container": "#1d1f2a",
+            "surface-container-highest": "#323440",
+            "primary-container": "#ff4e7d",
+            "surface-bright": "#373845",
+            "error-container": "#93000a",
+            "on-tertiary-container": "#002d40",
+            "tertiary-container": "#009bd1",
+            "on-primary-fixed-variant": "#900038",
+            "on-secondary-container": "#00452e",
+            "on-secondary": "#003825",
+            "background": "#11131e",
+            "on-tertiary-fixed-variant": "#004c69",
+            "primary-fixed-dim": "#ffb2be",
+            "on-surface-variant": "#e5bdc2",
+            "surface-dim": "#11131e",
+            "primary": "#ffb2be",
+            "on-primary-fixed": "#400014"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-mobile": "1.25rem",
+            "margin": "2.5rem",
+            "gutter-mobile": "1rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.75rem",
+            "space-xs": "0.375rem",
+            "space-lg": "2rem",
+            "space-md": "1.25rem",
+            "space-xl": "3rem"
+          },
+          "fontFamily": {
+            "display-lg-mobile": ["Nunito Sans"],
+            "headline-sm": ["Nunito Sans"],
+            "headline-lg-mobile": ["Nunito Sans"],
+            "label-md": ["Nunito Sans"],
+            "body-md": ["Nunito Sans"],
+            "body-lg": ["Nunito Sans"],
+            "label-lg": ["Nunito Sans"],
+            "headline-lg": ["Nunito Sans"],
+            "display-lg": ["Nunito Sans"],
+            "headline-md": ["Nunito Sans"]
+          },
+          "fontSize": {
+            "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+            "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    /* Neon glow effect as specified for game titles and accents */
+    .neon-text-glow {
+      text-shadow: 0 0 10px rgba(255, 42, 112, 0.85), 0 0 20px rgba(255, 78, 125, 0.55);
+    }
+    .neon-box-glow {
+      box-shadow: 0 0 25px -4px rgba(255, 78, 125, 0.35);
+    }
+    .badge-glow {
+      box-shadow: 0 0 15px rgba(255, 78, 125, 0.25);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md antialiased selection:bg-primary-container selection:text-white min-h-screen flex flex-col">
+<!-- ================= TOP APP BAR (Shared Component) ================= -->
+<header class="bg-surface dark:bg-surface border-b border-surface-variant/30 docked full-width top-0 sticky z-50 shadow-sm dark:shadow-none">
+<div class="flex items-center justify-between px-6 lg:px-10 py-4 max-w-7xl mx-auto w-full">
+<!-- Brand Logo / Product Name -->
+<a class="flex items-center gap-3 group" href="index.html">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary-container to-secondary flex items-center justify-center shadow-lg shadow-primary-container/20 group-hover:scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined text-white font-bold" data-icon="sports_esports" style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+</div>
+<div>
+<span class="text-headline-md font-headline-md font-extrabold text-primary-fixed dark:text-primary-fixed tracking-tight block leading-none">MD Education Games</span>
+<span class="text-label-md font-label-md text-on-surface-variant opacity-70 tracking-wider">A product of Codeix</span>
+</div>
+</a>
+<!-- Desktop Navigation Links -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant dark:text-on-surface-variant font-medium hover:text-primary dark:hover:text-primary transition-colors duration-200 text-label-lg font-label-lg" href="index.html">Anasayfa</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-medium hover:text-primary dark:hover:text-primary transition-colors duration-200 text-label-lg font-label-lg" href="index.html">Hakkımızda</a>
+<!-- Active link: Oyunlar -->
+<a class="text-primary dark:text-primary font-bold border-b-2 border-primary-container pb-1 text-label-lg font-label-lg" href="index.html">Oyunlar</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-medium hover:text-primary dark:hover:text-primary transition-colors duration-200 text-label-lg font-label-lg" href="index.html">İletişim</a>
+</nav>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-3">
+<!-- Trailing Icon Action: Notifications -->
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:text-primary hover:bg-surface-container-high transition-colors duration-200 relative" title="Bildirimler">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary-container"></span>
+</button>
+<!-- Trailing Primary Action: Giriş Yap -->
+<button class="bg-primary-container text-white px-5 py-2.5 rounded-full text-label-lg font-label-lg hover:brightness-110 active:scale-95 transition-all duration-150 shadow-md shadow-primary-container/30 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="login">login</span>
+<span>Giriş Yap</span>
+</button>
+</div>
+</div>
+</header>
+<!-- ================= MAIN CONTENT ================= -->
+<main class="flex-grow max-w-7xl mx-auto px-6 lg:px-10 py-8 w-full space-y-10">
+<!-- Breadcrumb & Header Section -->
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<a class="inline-flex items-center gap-1.5 text-label-lg font-label-lg text-primary hover:text-primary-fixed transition-colors duration-200 group" href="index.html">
+<span class="material-symbols-outlined text-[18px] transition-transform group-hover:-translate-x-1" data-icon="arrow_back">arrow_back</span>
+<span>Tüm Kategoriler</span>
+</a>
+<span class="text-surface-variant font-bold">/</span>
+<span class="text-on-surface-variant text-label-md font-label-md">Klavye Refleks &amp; Yazma</span>
+</div>
+<!-- Main Title & Badge Block -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2 border-b border-surface-variant/20">
+<div class="space-y-2 max-w-2xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-primary-container/30 badge-glow">
+<span class="text-base leading-none">⌨️</span>
+<span class="text-label-md font-label-md text-primary font-bold tracking-wide">10 Parmak &amp; Hızlı Yazma</span>
+</div>
+<h1 class="text-display-lg-mobile md:text-display-lg font-display-lg-mobile md:font-display-lg text-white tracking-tight">
+            Klavye <span class="text-primary-container neon-text-glow font-extrabold">Oyunları</span>
+</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant">
+            Hızlı yazma, 10 parmak klavye kullanımı ve harf reflekslerini geliştiren eğitici klavye oyunları ile öğrenmeyi eğlenceli bir maceraya dönüştürün.
+          </p>
+</div>
+<!-- Filter Chips / Sınıf Filtre Hapları -->
+<div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+<button class="px-5 py-2 rounded-full bg-primary-container text-white text-label-md font-label-md shadow-md shadow-primary-container/30 transition-all font-bold ring-2 ring-primary-container">
+            Tümü
+          </button>
+<button class="px-4 py-2 rounded-full bg-surface-container text-on-surface-variant hover:text-white hover:bg-surface-container-high border border-surface-variant/40 text-label-md font-label-md transition-all">
+            1. Sınıf
+          </button>
+<button class="px-4 py-2 rounded-full bg-surface-container text-on-surface-variant hover:text-white hover:bg-surface-container-high border border-surface-variant/40 text-label-md font-label-md transition-all">
+            2. Sınıf
+          </button>
+<button class="px-4 py-2 rounded-full bg-surface-container text-on-surface-variant hover:text-white hover:bg-surface-container-high border border-surface-variant/40 text-label-md font-label-md transition-all">
+            3. Sınıf
+          </button>
+<button class="px-4 py-2 rounded-full bg-surface-container text-on-surface-variant hover:text-white hover:bg-surface-container-high border border-surface-variant/40 text-label-md font-label-md transition-all">
+            4. Sınıf
+          </button>
+</div>
+</div>
+</div>
+<!-- ================= GAME SHOWCASE GRID (Reference Match) ================= -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-2">
+<!-- Game Card 1: Meyve Sepeti (Coral / Peach Button #ff8a65) -->
+<div role="link" tabindex="0" onclick="location.href='oyun.html?g=klavye-1'" class="group flex flex-col cursor-pointer transition-transform duration-300 hover:-translate-y-1.5">
+<div class="relative w-full aspect-[16/10] bg-surface-container-low rounded-3xl overflow-hidden border border-white/5 shadow-lg group-hover:border-primary-container/40 transition-colors duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A joyful 3D animated young girl with blonde hair in pigtails holding a rustic woven basket full of colorful ripe apples in a sunlit sunny orchard meadow. Crisp bright atmospheric daylight, vibrant playful Pixar-style aesthetics, deep green grass and clear blue sky in an energetic digital gaming canvas." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwRj25h8z5TpepIJRwDOjc_dXVqHbIMWJA-VZNrKbA0u2mYa_0iIm99CM176QPlvIbf_Y8iuzbvr0dHvC9V4Bo8o7Ler6LoIcjrcOi0h1pYHiOZJ2jYfWmgPfqzHW7N3BUnEm88_PIgAJtc0oGE9h7T51wlQlM0KSrdK4n7J76O6RnFKW7lC66S3tD36YVgH2gg6hGLUybBBkTGo2lXktikJeGjllOIfP4BXZNyw2OX-lOZew7XH8"/>
+<!-- Corner Cutout Action Disc Button (Coral #ff8a65) -->
+<div class="absolute bottom-3 right-3 w-14 h-14 rounded-full bg-[#ff8a65] border-4 border-surface flex items-center justify-center shadow-[0_8px_20px_rgba(255,138,101,0.45)] group-hover:scale-110 group-hover:brightness-110 transition-all duration-200 z-10">
+<span class="material-symbols-outlined text-white text-2xl font-black" data-icon="north_east">north_east</span>
+</div>
+</div>
+<!-- Card Label Below Thumbnail with Neon Glow -->
+<div class="pt-3 px-1">
+<h3 class="text-headline-md font-headline-md font-bold text-white neon-text-glow tracking-tight group-hover:text-primary transition-colors">
+            Meyve Sepeti
+          </h3>
+<p class="text-body-md font-body-md text-on-surface-variant opacity-80 pt-0.5">Düşen harfleri meyve sepetinde topla ve kelimeleri yakala.</p>
+</div>
+</div>
+<!-- Game Card 2: Harf Yağmuru (Emerald / Mint Teal Button #34d399) -->
+<div role="link" tabindex="0" onclick="location.href='oyun.html?g=klavye-2'" class="group flex flex-col cursor-pointer transition-transform duration-300 hover:-translate-y-1.5">
+<div class="relative w-full aspect-[16/10] bg-surface-container-low rounded-3xl overflow-hidden border border-white/5 shadow-lg group-hover:border-primary-container/40 transition-colors duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A cute cartoon boy with brown hair happily typing on a modern gaming keyboard while vibrant 3D letters of the alphabet float and rain through the air in a cheerful illuminated classroom. Warm indoor glow with energetic digital sparkles in a stylized playful 3D animation art direction." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOO2ZVtNSRr0GKQWNf3eqmCR3YKHmh9HhomHe1nWSyITwlTDOq1as_5-Zyjv5gLFVuQLMGe_sPMJgxwO35p9_XLBil3ia4cKrrT8n3tVbVCGpDdkdiPfGydf7sYG212cHNEjfk5uH2IeSuITRmoojxDt4zBPVM3La5hFcbczznPurk0HNjJZvjonY951rjHM3DL_ymXk2Z85KeE7src6jSwzzPIClfAM6cuYcxcW9VyjmZKL6S3jg"/>
+<!-- Corner Cutout Action Disc Button (Teal #34d399) -->
+<div class="absolute bottom-3 right-3 w-14 h-14 rounded-full bg-[#34d399] border-4 border-surface flex items-center justify-center shadow-[0_8px_20px_rgba(52,211,153,0.45)] group-hover:scale-110 group-hover:brightness-110 transition-all duration-200 z-10">
+<span class="material-symbols-outlined text-white text-2xl font-black" data-icon="north_east">north_east</span>
+</div>
+</div>
+<!-- Card Label Below Thumbnail with Neon Glow -->
+<div class="pt-3 px-1">
+<h3 class="text-headline-md font-headline-md font-bold text-white neon-text-glow tracking-tight group-hover:text-primary transition-colors">
+            Harf Yağmuru
+          </h3>
+<p class="text-body-md font-body-md text-on-surface-variant opacity-80 pt-0.5">Gökyüzünden yağan harfleri klavyeden en hızlı sen tuşla.</p>
+</div>
+</div>
+<!-- Game Card 3: Labirentten Kaçış (Punch Neon Pink / Fuchsia Button #f43f5e) -->
+<div role="link" tabindex="0" onclick="location.href='oyun.html?g=klavye-3'" class="group flex flex-col cursor-pointer transition-transform duration-300 hover:-translate-y-1.5">
+<div class="relative w-full aspect-[16/10] bg-surface-container-low rounded-3xl overflow-hidden border border-white/5 shadow-lg group-hover:border-primary-container/40 transition-colors duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An isometric top-down 3D scene of a young girl standing inside a mystical stone labyrinth whose corridors glow with intense neon mint green and turquoise floor lights. Moody atmospheric arcade lighting with high contrast game environment and stylized architectural geometry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrdpCoEe-ITGLwyvOnycK49UZqDRW8-oFTohaiA_H9om1fMml-u0E2r3aDnvcq0sBI8C3a8i7q0z3V62k4BwvACEw7bDW4RSN0SmTxYbFPSBc8e0XUKnu6wNQQqw7ZSDERJ2A-uebJzMAhSDpqeQYOiyfKYzJRixsHyJntePfIJrjwXXrK6xThEzrL_HWqCF0Db1b2OJKYGhvpm86iw8EnCDRtE0HA4RqlID_8CUVs7Xa_BpM-ukA"/>
+<!-- Corner Cutout Action Disc Button (Fuchsia Pink #f43f5e) -->
+<div class="absolute bottom-3 right-3 w-14 h-14 rounded-full bg-[#f43f5e] border-4 border-surface flex items-center justify-center shadow-[0_8px_20px_rgba(244,63,94,0.45)] group-hover:scale-110 group-hover:brightness-110 transition-all duration-200 z-10">
+<span class="material-symbols-outlined text-white text-2xl font-black" data-icon="north_east">north_east</span>
+</div>
+</div>
+<!-- Card Label Below Thumbnail with Neon Glow -->
+<div class="pt-3 px-1">
+<h3 class="text-headline-md font-headline-md font-bold text-white neon-text-glow tracking-tight group-hover:text-primary transition-colors">
+            Labirentten Kaçış
+          </h3>
+<p class="text-body-md font-body-md text-on-surface-variant opacity-80 pt-0.5">Yön tuşları ve harf kombinasyonlarıyla gizemli labirentten çık.</p>
+</div>
+</div>
+<!-- Game Card 4: Kelimelerin Gücü (Vibrant Purple Button #a855f7) -->
+<div role="link" tabindex="0" onclick="location.href='oyun.html?g=klavye-4'" class="group flex flex-col cursor-pointer transition-transform duration-300 hover:-translate-y-1.5">
+<div class="relative w-full aspect-[16/10] bg-surface-container-low rounded-3xl overflow-hidden border border-white/5 shadow-lg group-hover:border-primary-container/40 transition-colors duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A magical scene of an electric guitar emerging from an oversized violet magician top hat in an enchanted forest meadow, surrounded by glowing neon pink letter signs spelling out the word gitar. Ethereal atmospheric particles and dramatic glowing arcade illumination." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd-XjibaNowhCnAW_WuHny-aFDkvOYO_19yyX_lfKRzitiBebEY8Nav4u4L_ki6dxMxoUx9ascItUUyq7YZM2SpSnQfOb4RP-5rURqq62UGpzFaG8L8ci9_k5bw908RFDjxEGn_WnBMlFQHw2Our4zk6nbOwurNK08-Wr6U_GCy9QxADoRXJr087CNxwARwMeH0Esc9w_lbwGfDBpnm3GXv1rY7vAEXbIDymkwcVwql9KBkDBbzIc"/>
+<!-- Corner Cutout Action Disc Button (Purple #a855f7) -->
+<div class="absolute bottom-3 right-3 w-14 h-14 rounded-full bg-[#a855f7] border-4 border-surface flex items-center justify-center shadow-[0_8px_20px_rgba(168,85,247,0.45)] group-hover:scale-110 group-hover:brightness-110 transition-all duration-200 z-10">
+<span class="material-symbols-outlined text-white text-2xl font-black" data-icon="north_east">north_east</span>
+</div>
+</div>
+<!-- Card Label Below Thumbnail with Neon Glow -->
+<div class="pt-3 px-1">
+<h3 class="text-headline-md font-headline-md font-bold text-white neon-text-glow tracking-tight group-hover:text-primary transition-colors">
+            Kelimelerin Gücü
+          </h3>
+<p class="text-body-md font-body-md text-on-surface-variant opacity-80 pt-0.5">Müzik ve sihir eşliğinde eksik sözcükleri hızlıca klavyede tamamla.</p>
+</div>
+</div>
+<!-- Game Card 5: Kayıp Harfler (Sky Blue Button #0ea5e9) -->
+<div role="link" tabindex="0" onclick="location.href='oyun.html?g=klavye-5'" class="group flex flex-col cursor-pointer transition-transform duration-300 hover:-translate-y-1.5">
+<div class="relative w-full aspect-[16/10] bg-surface-container-low rounded-3xl overflow-hidden border border-white/5 shadow-lg group-hover:border-primary-container/40 transition-colors duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A stylized leather hiking boot resting on a red draped circular stage in an outdoor woodland park setting, with natural wooden letter tiles arranged in front displaying scrambled letters like YALKAB. Bright natural cinematic daylight with playful soft 3D educational game rendering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD26LvfuJJxoooX11S7oZ2nurZaxo_-WfJAtlypGVGNdP3OHHyEM9NmbN2whe50mAJh6CkWpxmgR_qUyg-3VcDNWjmoCtcIlgaCxFFBNsdMCC6VEirinSXQI58MN8aDt3Q5ToDR5DYECZOlH6Uk1NkJxM65y7kdhWY53VzWOLwas7MAqzLVemWCm5JFU0gJwYtjfG3VGJnBKJgqQbJukJDGMOxakyigz7EvG41PCR_KqqFpVnjL6pA"/>
+<!-- Corner Cutout Action Disc Button (Sky Blue #0ea5e9) -->
+<div class="absolute bottom-3 right-3 w-14 h-14 rounded-full bg-[#0ea5e9] border-4 border-surface flex items-center justify-center shadow-[0_8px_20px_rgba(14,165,233,0.45)] group-hover:scale-110 group-hover:brightness-110 transition-all duration-200 z-10">
+<span class="material-symbols-outlined text-white text-2xl font-black" data-icon="north_east">north_east</span>
+</div>
+</div>
+<!-- Card Label Below Thumbnail with Neon Glow -->
+<div class="pt-3 px-1">
+<h3 class="text-headline-md font-headline-md font-bold text-white neon-text-glow tracking-tight group-hover:text-primary transition-colors">
+            Kayıp Harfler
+          </h3>
+<p class="text-body-md font-body-md text-on-surface-variant opacity-80 pt-0.5">Karışık ahşap harf bloklarını doğru sıraya dizerek nesneleri bul.</p>
+</div>
+</div>
+<!-- Game Card 6: Kayıp Semboller (Amber / Warm Gold Button #f59e0b) -->
+<div role="link" tabindex="0" onclick="location.href='oyun.html?g=klavye-6'" class="group flex flex-col cursor-pointer transition-transform duration-300 hover:-translate-y-1.5">
+<div class="relative w-full aspect-[16/10] bg-surface-container-low rounded-3xl overflow-hidden border border-white/5 shadow-lg group-hover:border-primary-container/40 transition-colors duration-300">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A whimsical stone pathway in a sandy canyon landscape paved with ancient stone stepping tablets carved with mysterious keyboard symbols including dollar signs, asterisks, and question marks. Warm golden hour sunlight casting soft dramatic shadows in a high-detail 3D adventure style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-_765JUEAiJ1UgpwbnNnyWvRnukp2W4P7k1KV82EGZ7t_9e3iiQ4zG3w06FtXrKx-T2qmPArulwzB0M03ZJJzREmQOv_ZwIp9ucZaFDA8Nlz75XMaDPUuILM04frLWUG9wCVRohz7vrePA4p8YJj50N5Qorx0nTHJIEpcW0HWhKiSI5P20IH9ZAfcCN1fYicvFQenUiRSEf7n7vQ4syZWjPIvA-lh_Z4IY-McErFubRF91KigxNc"/>
+<!-- Corner Cutout Action Disc Button (Amber #f59e0b) -->
+<div class="absolute bottom-3 right-3 w-14 h-14 rounded-full bg-[#f59e0b] border-4 border-surface flex items-center justify-center shadow-[0_8px_20px_rgba(245,158,11,0.45)] group-hover:scale-110 group-hover:brightness-110 transition-all duration-200 z-10">
+<span class="material-symbols-outlined text-white text-2xl font-black" data-icon="north_east">north_east</span>
+</div>
+</div>
+<!-- Card Label Below Thumbnail with Neon Glow -->
+<div class="pt-3 px-1">
+<h3 class="text-headline-md font-headline-md font-bold text-white neon-text-glow tracking-tight group-hover:text-primary transition-colors">
+            Kayıp Semboller
+          </h3>
+<p class="text-body-md font-body-md text-on-surface-variant opacity-80 pt-0.5">Özel karakter ve sembol tuşlarını bularak antik yolu tamamla.</p>
+</div>
+</div>
+</div>
+<!-- ================= INFO & TUTORIAL BANNER ================= -->
+<section class="mt-12 bg-gradient-to-r from-surface-container via-surface-container-high to-surface-container border border-surface-variant/40 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl relative overflow-hidden">
+<!-- Glow ambient background light -->
+<div class="absolute -right-20 -bottom-20 w-64 h-64 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex items-center gap-5">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-lowest border border-primary-container/30 flex items-center justify-center flex-shrink-0 shadow-lg text-primary-container">
+<span class="material-symbols-outlined text-3xl" data-icon="keyboard" style="font-variation-settings: 'FILL' 1;">keyboard</span>
+</div>
+<div class="space-y-1">
+<div class="inline-flex items-center gap-2">
+<span class="text-label-md font-label-md text-secondary font-bold uppercase tracking-wider">Eğitmen İpucu</span>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-white font-bold">Nasıl Oynanır?</h4>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-xl">
+            Klavye ile harfleri yakalayın, kelimeleri tamamlayın ve yazma hızınızı artırın! Her seviye reflekslerinizi ve parmak koordinasyonunuzu bir üst aşamaya taşır.
+          </p>
+</div>
+</div>
+<div class="flex-shrink-0 flex items-center gap-3 w-full md:w-auto">
+<button class="w-full md:w-auto px-6 py-3 rounded-full bg-surface-container-high hover:bg-surface-bright text-white border border-surface-variant/50 hover:border-primary-container/50 text-label-lg font-label-lg transition-all duration-200 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="menu_book">menu_book</span>
+<span>Klavye Rehberi İncele</span>
+</button>
+</div>
+</section>
+</main>
+<!-- ================= FOOTER (Shared Component) ================= -->
+<footer class="border-t border-surface-variant/20 bg-surface-container-lowest dark:bg-surface-container-lowest docked full-width bottom-0 mt-16">
+<div class="flex flex-col md:flex-row justify-between items-center px-6 lg:px-10 py-8 max-w-7xl mx-auto w-full gap-4">
+<!-- Copyright text -->
+<div class="flex items-center gap-3">
+<span class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary">MD Education Games</span>
+<span class="text-surface-variant hidden md:inline">|</span>
+<p class="text-body-md font-body-md text-on-surface-variant dark:text-on-surface-variant">
+          © 2025 MD Education Games. Tüm hakları saklıdır.
+        </p>
+</div>
+<!-- Footer Navigation Links -->
+<div class="flex flex-wrap items-center justify-center gap-6 text-label-md font-label-md text-on-surface-variant dark:text-on-surface-variant">
+<a class="hover:text-secondary dark:hover:text-secondary transition-colors duration-200" href="#">Gizlilik Politikası</a>
+<a class="hover:text-secondary dark:hover:text-secondary transition-colors duration-200" href="#">Kullanım Şartları</a>
+<a class="hover:text-secondary dark:hover:text-secondary transition-colors duration-200" href="#">Ebeveyn Rehberi</a>
+<a class="hover:text-secondary dark:hover:text-secondary transition-colors duration-200" href="#">Destek</a>
+</div>
+</div>
+</footer>
+<!-- Subtle interactive scripts for filter state toggling -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const pills = document.querySelectorAll('.scrollbar-none button');
+      pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          pills.forEach(p => {
+            p.className = 'px-4 py-2 rounded-full bg-surface-container text-on-surface-variant hover:text-white hover:bg-surface-container-high border border-surface-variant/40 text-label-md font-label-md transition-all';
+          });
+          pill.className = 'px-5 py-2 rounded-full bg-primary-container text-white text-label-md font-label-md shadow-md shadow-primary-container/30 transition-all font-bold ring-2 ring-primary-container';
+        });
+      });
+    });
+  </script>
+</body></html>

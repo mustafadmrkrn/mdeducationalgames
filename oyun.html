@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="tr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oyun | MD Education Games</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#11131e;--s1:#191b26;--s2:#1d1f2a;--s3:#323440;--pk:#ff4e7d;--mint:#34d399;--tx:#e1e1f1;--mu:#e5bdc2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'Nunito Sans',sans-serif;min-height:100vh}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 28px;border-bottom:1px solid #ffffff14}
+header a{color:#ffd9de;text-decoration:none;font-weight:800;font-size:20px}
+main{max-width:980px;margin:0 auto;padding:24px 20px 48px}
+.back{color:var(--mu);text-decoration:none;font-weight:700}
+h1{font-size:40px;margin:12px 0 4px;color:#fff;text-shadow:0 0 6px #ff2a70,0 0 14px #ff0055,0 0 22px #e11d48}
+.d{color:var(--mu);margin:0 0 16px}
+.bar{display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:var(--s2);border:1px solid #ffffff10;border-radius:999px;padding:8px 10px 8px 20px;margin-bottom:14px;font-weight:700}
+.bar #info{flex:1;color:var(--mu)}
+.btn,.btn2,.opt{font:inherit;font-weight:800;cursor:pointer;border-radius:999px;border:1px solid #ffffff1f;color:#fff;text-decoration:none;display:inline-block}
+.btn{background:var(--pk);border:0;padding:10px 22px;box-shadow:0 0 18px #ff4e7d66}
+.btn2{background:var(--s3);padding:10px 22px}
+.opt{background:var(--s3);padding:14px 22px;font-size:20px;transition:.15s}
+.opt:hover{border-color:var(--pk);transform:translateY(-2px)}
+.good{background:#10b981!important;border-color:#10b981!important}.bad{background:#e11d48!important}
+#stage{position:relative;overflow:hidden;min-height:480px;background:var(--s1);border:1px solid #ffffff10;border-radius:24px;user-select:none}
+.center{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;min-height:480px;padding:24px;text-align:center}
+.q{font-size:34px;margin:0}.opts,.pad{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.ov{position:absolute;inset:0;background:#0b0e18e6;display:grid;place-items:center;text-align:center;z-index:9}
+.ov h2{font-size:36px;margin:0 0 6px}
+.grid4{display:grid;grid-template-columns:repeat(4,110px);gap:14px}
+.grid4 button{height:110px;border:3px solid #ffffff33;border-radius:20px;cursor:pointer}
+.grid3{display:grid;grid-template-columns:repeat(3,120px);gap:16px;justify-content:center;padding:40px 0}
+.hole{height:120px;border-radius:50%;background:#2b2030;border:4px solid #3d2c45;font-size:60px;cursor:pointer}
+.bl{position:absolute;bottom:-70px;font-size:56px;cursor:pointer;animation:rise linear forwards}
+@keyframes rise{to{transform:translateY(-600px)}}
+.puz{display:grid;grid-template-columns:repeat(3,110px);gap:8px;margin:auto}
+.tile{height:110px;border:0;border-radius:18px;font-size:44px;cursor:pointer;color:#fff;position:relative}
+.tile small{position:absolute;top:6px;left:10px;font-size:14px;font-weight:800}
+.gm{display:grid;grid-template-columns:repeat(4,100px);gap:12px;justify-content:center;padding:36px 0}
+.card{height:100px;border-radius:16px;border:2px solid #ffffff22;background:linear-gradient(135deg,#ff4e7d,#a855f7);font-size:0;cursor:pointer}
+.card.on,.card.done{background:#fff;font-size:48px}.card.done{background:#064e3b}
+canvas{display:block;width:100%;background:#fffdf7;touch-action:none;cursor:crosshair}
+.tools{display:flex;gap:10px;align-items:center;padding:12px;flex-wrap:wrap}
+.sw{width:36px;height:36px;border-radius:50%;border:3px solid #fff;cursor:pointer}
+.fi{position:absolute;display:flex;flex-direction:column;align-items:center;font-size:38px;line-height:1}
+.fi b{font-size:22px;background:#fff;color:#111;border-radius:8px;padding:0 8px;margin-top:2px}
+.word{font-size:48px;font-weight:800;letter-spacing:6px}.word u{text-decoration-color:var(--pk)}
+.sym{font-size:120px;font-weight:800;color:var(--pk);text-shadow:0 0 24px #ff2a70}
+.maze{display:grid;grid-template-columns:repeat(11,38px);width:max-content;margin:36px auto}
+.maze i{width:38px;height:38px;display:grid;place-items:center;font-style:normal;font-size:26px;background:#11131e}
+.maze i.w{background:#3b3f57;border-radius:6px}
+.target{padding:22px 48px;border-radius:24px;font-size:30px;font-weight:800;color:#111}
+.flasks{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.flask{background:var(--s3);color:#fff;font:inherit;font-weight:700;border:2px solid #ffffff22;border-radius:18px;padding:10px 14px;cursor:pointer}
+.flask span{display:block;width:46px;height:46px;border-radius:50% 50% 12px 12px;margin:0 auto 6px}
+.flask.on{border-color:var(--pk);box-shadow:0 0 14px #ff4e7d88}
+.board{display:grid;grid-template-columns:repeat(5,64px)}
+.board i{width:64px;height:64px;display:grid;place-items:center;font-style:normal;font-size:34px;border:1px solid #ffffff14;background:#11131e}
+.prog{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;min-height:36px;max-width:560px}.prog b{background:var(--s3);padding:4px 10px;border-radius:10px}
+@media(max-width:640px){.grid4{grid-template-columns:repeat(4,70px)}.grid4 button{height:70px}.grid3,.gm{grid-template-columns:repeat(3,90px)}.gm{grid-template-columns:repeat(4,70px)}.card{height:70px}.hole{height:90px}.maze{grid-template-columns:repeat(11,26px)}.maze i{width:26px;height:26px;font-size:16px}.word{font-size:30px}}
+</style></head><body>
+<header><a href="index.html">🎮 MD Education Games</a><a href="index.html" style="font-size:15px;color:#ffb2be">Anasayfa</a></header>
+<main>
+<a class="back" id="back" href="index.html">← Oyunlara dön</a>
+<h1 id="ttl"></h1><p class="d" id="desc"></p>
+<div class="bar"><span>Puan: <b id="sc">0</b></span><span id="info"></span><button class="btn2" id="rs">↻ Yeniden Başlat</button></div>
+<div id="stage"></div>
+</main>
+<script>
+const Q=new URLSearchParams(location.search).get('g')||'mouse-1';
+const $=s=>document.querySelector(s),R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,pick=a=>a[R(0,a.length-1)],
+shuf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]),norm=s=>s.toUpperCase().replace(/İ/g,'I');
+const META={'mouse-1':['Renkli Kareler','İstenen rengi bul ve tıkla!'],'mouse-2':['Küçük Ressam','Renk seç, fareyi basılı tutup çiz.'],'mouse-3':['Balon Şenliği','30 saniyede olabildiğince çok balon patlat!'],'mouse-4':['Puzzle Bahçesi','Parçaları kaydırarak sırala: 1’den 8’e.'],'mouse-5':['Tavşancık Koş!','Tavşanlara tıkla, tilkilere dokunma!'],'mouse-6':['Hafıza Kartları','Aynı meyve çiftlerini bul.'],
+'klavye-1':['Meyve Sepeti','Düşen meyvelerin harfine bas, sepete topla!'],'klavye-2':['Harf Yağmuru','Yağan harfleri klavyede en hızlı sen tuşla!'],'klavye-3':['Labirentten Kaçış','Ok tuşları veya W A S D ile peynire ulaş.'],'klavye-4':['Kelimelerin Gücü','Kelimedeki eksik harfi yaz.'],'klavye-5':['Kayıp Harfler','Karışık harfleri doğru sıraya diz ve yaz.'],'klavye-6':['Kayıp Semboller','Gördüğün sembolü klavyede bul (veya tıkla).'],
+'etk-1':['Think Steps','Adım adım düşün, işlemleri çöz.'],'etk-2':['Bilim Kaşifleri','İki sıvıyı karıştırıp hedef rengi elde et.'],'etk-3':['Kodlama Macerası','Komutları sırala, robotu yıldıza ulaştır.'],'etk-4':['Uzay & Gezegenler','Güneş sistemi bilgi yarışması.']};
+const M=META[Q]||['Oyun','Bu oyun bulunamadı.'];
+const BACK=Q.startsWith('mouse')?'mouse-oyunlari.html':Q.startsWith('klavye')?'klavye-oyunlari.html':'etkilesimli-oyunlar.html';
+$('#ttl').textContent=M[0];$('#desc').textContent=M[1];$('#back').href=BACK;document.title=M[0]+' | MD Education Games';
+const st=$('#stage');let score=0,timers=[],keyH=null;
+const setScore=n=>{score=Math.max(0,n);$('#sc').textContent=score},add=n=>setScore(score+n),info=t=>$('#info').innerHTML=t;
+const T=(f,ms)=>{const i=setInterval(f,ms);timers.push(i);return i},TO=(f,ms)=>{const i=setTimeout(f,ms);timers.push(i);return i};
+const stop=()=>{timers.forEach(i=>{clearInterval(i);clearTimeout(i)});timers=[];keyH=null};
+function timed(s){let t=s;info('⏱ '+t+' sn');T(()=>{t--;info('⏱ '+t+' sn');if(t<=0)end('Süre doldu!')},1000)}
+function end(msg){stop();let b=score;try{b=Math.max(score,+localStorage.getItem('b-'+Q)||0);localStorage.setItem('b-'+Q,b)}catch(e){}
+const o=document.createElement('div');o.className='ov';o.innerHTML=`<div><h2>${msg}</h2><p>Puanın: <b>${score}</b> · En iyi: <b>${b}</b></p><button class="btn" onclick="start()">Tekrar Oyna</button> <a class="btn2" href="${BACK}">Oyunlara Dön</a></div>`;st.appendChild(o)}
+document.addEventListener('keydown',e=>{if(keyH){if(e.key.startsWith('Arrow')||e.key==' ')e.preventDefault();keyH(e)}});
+const G={};
+
+/* ---------- MOUSE ---------- */
+G['mouse-1']=()=>{const C=[['Kırmızı','#ef4444'],['Mavi','#3b82f6'],['Sarı','#fbbf24'],['Yeşil','#22c55e'],['Mor','#a855f7'],['Turuncu','#fb923c'],['Pembe','#ec4899'],['Turkuaz','#14b8a6']];let n=0;
+const round=()=>{if(n==10)return end('Harika!');n++;info(`Tur ${n}/10`);const t=pick(C);let c=shuf(C);if(!c.includes(t))c[0]=t;c=shuf(c);
+st.innerHTML=`<div class="center"><h2 class="q">Hangisi <u style="text-decoration-color:${t[1]}">${t[0]}</u>?</h2><div class="grid4">${c.map(x=>`<button style="background:${x[1]}" data-n="${x[0]}"></button>`).join('')}</div></div>`;
+st.querySelectorAll('button').forEach(b=>b.onclick=()=>{if(b.dataset.n==t[0]){add(10);b.textContent='✔';TO(round,400)}else add(-2)})};round()};
+
+G['mouse-2']=()=>{info('Serbest çizim');st.innerHTML='<canvas id="cv" width="900" height="480"></canvas><div class="tools">'+['#ef4444','#fb923c','#fbbf24','#22c55e','#38bdf8','#a855f7','#ec4899','#111111'].map(c=>`<button class="sw" style="background:${c}" data-c="${c}"></button>`).join('')+'<input type="range" min="3" max="40" value="10" id="sz"><button class="btn2" id="clr">Temizle</button></div>';
+const cv=$('#cv'),x=cv.getContext('2d');let col='#ef4444',d=0;x.lineCap='round';x.lineJoin='round';
+const pos=e=>{const r=cv.getBoundingClientRect();return[(e.clientX-r.left)*900/r.width,(e.clientY-r.top)*480/r.height]};
+cv.onpointerdown=e=>{d=1;cv.setPointerCapture(e.pointerId);const[p,q]=pos(e);x.beginPath();x.moveTo(p,q);x.strokeStyle=col;x.lineWidth=$('#sz').value;x.lineTo(p+.1,q);x.stroke()};
+cv.onpointermove=e=>{if(!d)return;const[p,q]=pos(e);x.lineTo(p,q);x.stroke()};cv.onpointerup=()=>d=0;
+st.querySelectorAll('.sw').forEach(b=>b.onclick=()=>col=b.dataset.c);$('#clr').onclick=()=>x.clearRect(0,0,900,480)};
+
+G['mouse-3']=()=>{timed(30);T(()=>{const b=document.createElement('div');b.className='bl';b.textContent='🎈';b.style.cssText=`left:${R(3,90)}%;filter:hue-rotate(${R(0,359)}deg);animation-duration:${R(40,70)/10}s`;
+b.onanimationend=()=>b.remove();b.onpointerdown=()=>{if(b.dead)return;b.dead=1;add(10);b.textContent='💥';setTimeout(()=>b.remove(),200)};st.appendChild(b)},550)};
+
+G['mouse-4']=()=>{const a=[1,2,3,4,5,6,7,8,0],EM=['🌸','🌼','🦋','🐞','🍄','🌻','🐝','🌷'];let z=8,mv=0;
+const nb=i=>[i-3,i+3,i%3?i-1:-1,i%3<2?i+1:-1].filter(j=>j>=0&&j<9);
+for(let k=0;k<100;k++){const j=pick(nb(z));[a[z],a[j]]=[a[j],a[z]];z=j}
+const draw=()=>{info('Hamle: '+mv);st.innerHTML='<div class="center"><div class="puz">'+a.map((v,i)=>v?`<button class="tile" data-i="${i}" style="background:hsl(${v*40},70%,52%)">${EM[v-1]}<small>${v}</small></button>`:'<span></span>').join('')+'</div></div>';
+st.querySelectorAll('.tile').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;if(!nb(i).includes(z))return;[a[z],a[i]]=[a[i],a[z]];z=i;mv++;draw();if(a.every((v,i)=>v==(i+1)%9)){setScore(Math.max(10,300-mv*3));end('Puzzle tamamlandı! '+mv+' hamle')}})};draw()};
+
+G['mouse-5']=()=>{timed(30);st.innerHTML='<div class="grid3" id="h"></div>';const H=[];
+for(let i=0;i<9;i++){const d=document.createElement('button');d.className='hole';d.textContent='🕳️';d.onclick=()=>{if(d.k=='b'){add(10);d.textContent='⭐'}else if(d.k=='f'){add(-10);d.textContent='💢'}d.k=0};$('#h').appendChild(d);H.push(d)}
+let sp=1000;const loop=()=>{H.forEach(h=>{h.textContent='🕳️';h.k=0});const h=pick(H),f=Math.random()<.25;h.k=f?'f':'b';h.textContent=f?'🦊':'🐰';sp=Math.max(450,sp-15);TO(loop,sp)};loop()};
+
+G['mouse-6']=()=>{const E=['🍎','🍊','🍋','🍇','🍓','🥝','🍒','🍑'],D=shuf([...E,...E]);let open=[],lock=0,mv=0,ok=0;info('Hamle: 0');
+st.innerHTML='<div class="gm">'+D.map(e=>`<button class="card">${e}</button>`).join('')+'</div>';const C=[...st.querySelectorAll('.card')];
+C.forEach((c,i)=>c.onclick=()=>{if(lock||c.classList.contains('on')||c.classList.contains('done'))return;c.classList.add('on');open.push(i);if(open.length<2)return;mv++;info('Hamle: '+mv);
+if(D[open[0]]==D[open[1]]){open.forEach(j=>C[j].classList.add('done'));open=[];add(20);if(++ok==8){setScore(score+Math.max(0,100-mv*3));end('Hepsini buldun!')}}
+else{lock=1;TO(()=>{open.forEach(j=>C[j].classList.remove('on'));open=[];lock=0},700)}})};
+
+/* ---------- KLAVYE ---------- */
+const LET='ABCDEFGHIJKLMNOPRSTUVYZ'.split('');
+function fall(o){st.style.height='480px';let lives=5,sp=o.sp;const items=[],hp=()=>info('❤'.repeat(Math.max(lives,0))+' &nbsp; ⏱ '+(o.left??''));timed(o.sec);
+st.insertAdjacentHTML('beforeend','<div style="position:absolute;bottom:4px;width:100%;text-align:center;font-size:44px">'+o.base+'</div>');
+T(()=>{const L=pick(LET),d=document.createElement('div');d.className='fi';d.dataset.l=L;d.innerHTML=`${pick(o.em)}<b>${L}</b>`;d.style.left=R(2,88)+'%';d.style.top='-60px';st.appendChild(d);items.push(d)},o.gap);
+T(()=>{[...items].forEach(d=>{const y=parseFloat(d.style.top)+sp;d.style.top=y+'px';if(y>400){d.remove();items.splice(items.indexOf(d),1);if(--lives<=0)end('Oyun bitti!')}});sp+=o.acc},30);
+keyH=e=>{const k=norm(e.key);if(k.length!=1)return;const m=items.filter(d=>d.dataset.l==k).sort((a,b)=>parseFloat(b.style.top)-parseFloat(a.style.top))[0];if(m){m.remove();items.splice(items.indexOf(m),1);add(10)}}}
+G['klavye-1']=()=>fall({sec:60,sp:1.3,acc:.0006,gap:1600,em:['🍎','🍌','🍇','🍓','🍊','🍒'],base:'🧺'});
+G['klavye-2']=()=>fall({sec:45,sp:2.2,acc:.002,gap:850,em:['💧','☔','💦'],base:'🌧️'});
+
+G['klavye-3']=()=>{const N=11,g=Array.from({length:N},()=>Array(N).fill(1));
+(function c(x,y){g[y][x]=0;for(const[dx,dy]of shuf([[2,0],[-2,0],[0,2],[0,-2]])){const nx=x+dx,ny=y+dy;if(nx>0&&ny>0&&nx<N-1&&ny<N-1&&g[ny][nx]){g[y+dy/2][x+dx/2]=0;c(nx,ny)}}})(1,1);
+let px=1,py=1,t=0;T(()=>{t++;info('⏱ '+t+' sn')},1000);
+const draw=()=>{st.innerHTML='<div class="maze">'+g.map((r,y)=>r.map((w,x)=>`<i class="${w?'w':''}">${x==px&&y==py?'🐭':x==9&&y==9?'🧀':''}</i>`).join('')).join('')+'</div>'};draw();
+keyH=e=>{const m={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]}[e.key.length==1?e.key.toLowerCase():e.key];if(!m)return;
+const nx=px+m[0],ny=py+m[1];if(g[ny]&&!g[ny][nx]){px=nx;py=ny;draw();if(px==9&&py==9){setScore(Math.max(10,300-t*3));end('Peynire ulaştın! 🧀')}}}};
+
+G['klavye-4']=()=>{const W=shuf(['GITAR','KEMAN','PIYANO','DAVUL','FLUT','MELODI','SARKI','ORGAN','KLARNET','TAMBUR']);let n=0;
+const rnd=()=>{if(n==8)return end('Harika!');const w=W[n++],i=R(0,w.length-1);info(`Soru ${n}/8`);
+st.innerHTML=`<div class="center"><div class="word">${[...w].map((c,j)=>j==i?'<u>_</u>':c).join(' ')}</div><p>Eksik harfi yaz!</p></div>`;
+keyH=e=>{const k=norm(e.key);if(k.length!=1)return;if(k==w[i]){add(10);keyH=null;st.querySelector('u').textContent=w[i];TO(rnd,600)}else add(-1)}};rnd()};
+
+G['klavye-5']=()=>{const W=shuf(['KALEM','OKUL','BALIK','CICEK','ARABA','TAVSAN','KITAP','MASA']).slice(0,6);let n=0,typed='';
+const rnd=()=>{if(n==6)return end('Süper!');const w=W[n];let s;do{s=shuf([...w]).join('')}while(s==w);typed='';info(`Kelime ${n+1}/6`);
+const show=()=>st.innerHTML=`<div class="center"><p>Harfleri doğru sıraya dizip yaz!</p><div class="word">${[...s].join(' ')}</div><div class="word" style="color:var(--mint)">${[...w].map((_,j)=>typed[j]||'_').join(' ')}</div><p>Silmek için Backspace</p></div>`;show();
+keyH=e=>{if(e.key=='Backspace'){typed=typed.slice(0,-1);return show()}const k=norm(e.key);if(!/^[A-Z]$/.test(k))return;typed+=k;
+if(typed.length==w.length){if(typed==w){add(20);n++;keyH=null;show();return TO(rnd,800)}typed='';add(-2)}show()}};rnd()};
+
+G['klavye-6']=()=>{const S='!?#$%&*+=/()-@'.split('');let cur;timed(40);
+const tr=c=>{if(c==cur){add(10);nx()}else add(-2)};
+const nx=()=>{cur=pick(S);st.innerHTML=`<div class="center"><div class="sym">${cur}</div><p>Bu sembolü klavyede bul ve bas!</p><div class="pad">${S.map(c=>`<button class="opt" data-c="${c}">${c}</button>`).join('')}</div></div>`;st.querySelectorAll('.pad button').forEach(b=>b.onclick=()=>tr(b.dataset.c))};
+nx();keyH=e=>{if(e.key.length==1)tr(e.key)}};
+
+/* ---------- ETKİLEŞİMLİ ---------- */
+function quiz(L){let n=0,lock=0;const next=()=>{if(n==L.length)return end('Tebrikler!');const q=L[n];info(`Soru ${n+1}/${L.length}`);lock=0;
+st.innerHTML=`<div class="center"><h2 class="q">${q.q}</h2><div class="opts">${shuf(q.o).map(x=>`<button class="opt">${x}</button>`).join('')}</div></div>`;
+st.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{if(lock)return;lock=1;const ok=b.textContent==q.o[0];b.classList.add(ok?'good':'bad');
+if(!ok)st.querySelectorAll('.opts button').forEach(x=>{if(x.textContent==q.o[0])x.classList.add('good')});add(ok?10:0);n++;TO(next,1000)})};next()}
+
+G['etk-1']=()=>{const L=[];for(let i=0;i<10;i++){let q,a;
+if(i<3){const x=R(5,20),y=R(2,15);q=`${x} + ${y}`;a=x+y}else if(i<5){const x=R(20,40),y=R(5,19);q=`${x} − ${y}`;a=x-y}
+else if(i<8){const x=R(2,9),y=R(2,9);q=`${x} × ${y}`;a=x*y}else{const x=R(2,9),y=R(2,6),z=R(2,9);q=`${x} + ${y} × ${z}<br><small style="color:var(--mu)">İpucu: önce çarpma!</small>`;a=x+y*z}
+const o=[a];while(o.length<4){const w=a+R(-6,6);if(w>=0&&!o.includes(w))o.push(w)}L.push({q:q+' = ?',o:o.map(String)})}quiz(L)};
+
+G['etk-2']=()=>{const F={'Kırmızı':'#ef4444','Mavi':'#3b82f6','Sarı':'#fbbf24','Beyaz':'#f8fafc','Siyah':'#1f2937'};
+const L=shuf([['Turuncu','#fb923c','Kırmızı','Sarı'],['Yeşil','#22c55e','Mavi','Sarı'],['Mor','#a855f7','Kırmızı','Mavi'],['Pembe','#f9a8d4','Kırmızı','Beyaz'],['Açık Mavi','#93c5fd','Mavi','Beyaz'],['Gri','#9ca3af','Siyah','Beyaz']]);let n=0,sel=[];
+const rnd=()=>{if(n==6)return end('Harika kaşif! 🔬');const t=L[n];sel=[];info(`Deney ${n+1}/6`);
+st.innerHTML=`<div class="center"><p>Bu rengi elde etmek için iki sıvıyı karıştır:</p><div class="target" style="background:${t[1]}">${t[0]}</div><div class="flasks">${Object.entries(F).map(([k,c])=>`<button class="flask" data-k="${k}"><span style="background:${c}"></span>${k}</button>`).join('')}</div></div>`;
+const tg=st.querySelector('.target');
+st.querySelectorAll('.flask').forEach(b=>b.onclick=()=>{if(sel.length>=2||sel.includes(b.dataset.k))return;sel.push(b.dataset.k);b.classList.add('on');
+if(sel.length<2)return;if([t[2],t[3]].every(x=>sel.includes(x))){add(20);tg.textContent='✔ '+t[0];n++;TO(rnd,900)}
+else{add(-2);tg.textContent='✘ Tekrar dene';TO(()=>{sel=[];tg.textContent=t[0];st.querySelectorAll('.flask').forEach(x=>x.classList.remove('on'))},900)}})};rnd()};
+
+G['etk-3']=()=>{const LV=[['R....','.###.','.....','.###.','....S'],['R.#..','.##..','....#','.##..','...#S'],['R#...','.#.#.','.#.#.','.#.#.','...#S']];
+const D={'⬆':[0,-1],'⬇':[0,1],'⬅':[-1,0],'➡':[1,0]};let lv=0,prog=[],run=0;
+const load=()=>{if(lv==3)return end('Kodlama ustası! 🤖');prog=[];run=0;info(`Seviye ${lv+1}/3`);draw(0,0,'Komutları sırala ve Çalıştır’a bas.')};
+const go=()=>{if(run||!prog.length)return;run=1;let x=0,y=0,i=0;const id=setInterval(()=>{
+if(i>=prog.length){clearInterval(id);run=0;return draw(0,0,'Yıldıza ulaşamadın, tekrar dene!')}
+const d=D[prog[i++]],nx=x+d[0],ny=y+d[1];if(nx<0||ny<0||nx>4||ny>4||LV[lv][ny][nx]=='#'){clearInterval(id);run=0;return draw(x,y,'Çarptın! Programı düzelt.')}
+x=nx;y=ny;draw(x,y,'');if(LV[lv][y][x]=='S'){clearInterval(id);add(50);lv++;draw(x,y,'Başardın! 🎉');TO(load,1000)}},450);timers.push(id)};
+const draw=(rx,ry,msg)=>{st.innerHTML=`<div class="center"><div class="board">${LV[lv].map((r,y)=>[...r].map((c,x)=>`<i>${x==rx&&y==ry?'🤖':c=='#'?'🪨':c=='S'?'⭐':''}</i>`).join('')).join('')}</div><div class="prog">${prog.map(p=>`<b>${p}</b>`).join('')||'<em>Program boş</em>'}</div><div class="pad">${Object.keys(D).map(k=>`<button class="opt" data-k="${k}">${k}</button>`).join('')}<button class="opt" id="del">⌫</button><button class="btn" id="go">▶ Çalıştır</button></div><p>${msg}</p></div>`;
+st.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{if(run||prog.length>=20)return;prog.push(b.dataset.k);draw(0,0,'')});
+$('#del').onclick=()=>{if(!run){prog.pop();draw(0,0,'')}};$('#go').onclick=go};load()};
+
+G['etk-4']=()=>quiz([
+{q:'Güneş sistemindeki en büyük gezegen hangisidir?',o:['Jüpiter','Satürn','Mars','Dünya']},
+{q:'Halkalarıyla ünlü gezegen hangisidir?',o:['Satürn','Mars','Venüs','Merkür']},
+{q:'“Kızıl Gezegen” olarak bilinen gezegen hangisidir?',o:['Mars','Neptün','Merkür','Jüpiter']},
+{q:'Güneş’e en yakın gezegen hangisidir?',o:['Merkür','Venüs','Dünya','Uranüs']},
+{q:'Dünya’nın doğal uydusu hangisidir?',o:['Ay','Titan','Europa','Phobos']},
+{q:'Güneş sisteminde kaç gezegen vardır?',o:['8','7','9','10']},
+{q:'Güneş neyden oluşan dev bir yıldızdır?',o:['Sıcak gazlardan','Kayadan','Buzdan','Metalden']},
+{q:'Uzay boşluğunda kuyruğuyla ünlü gök cismi hangisidir?',o:['Kuyruklu yıldız','Asteroit','Gezegen','Uydu']}]);
+
+function start(){stop();st.innerHTML='';st.style.height='';setScore(0);info('');const f=G[Q];f?f():st.innerHTML='<div class="center"><h2>Oyun bulunamadı</h2><a class="btn" href="index.html">Anasayfa</a></div>'}
+$('#rs').onclick=start;start();
+</script></body></html>
