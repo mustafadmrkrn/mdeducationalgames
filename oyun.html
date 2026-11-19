@@ -67,6 +67,7 @@ canvas{display:block;width:100%;background:#fffdf7;touch-action:none;cursor:cros
 </main>
 <script>
 const Q=new URLSearchParams(location.search).get('g')||'mouse-1';
+if(Q==='mouse-1')location.replace('renkli-kareler.html');
 const $=s=>document.querySelector(s),R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,pick=a=>a[R(0,a.length-1)],
 shuf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]),norm=s=>s.toUpperCase().replace(/İ/g,'I');
 const META={'mouse-1':['Renkli Kareler','İstenen rengi bul ve tıkla!'],'mouse-2':['Küçük Ressam','Renk seç, fareyi basılı tutup çiz.'],'mouse-3':['Balon Şenliği','30 saniyede olabildiğince çok balon patlat!'],'mouse-4':['Puzzle Bahçesi','Parçaları kaydırarak sırala: 1’den 8’e.'],'mouse-5':['Tavşancık Koş!','Tavşanlara tıkla, tilkilere dokunma!'],'mouse-6':['Hafıza Kartları','Aynı meyve çiftlerini bul.'],
