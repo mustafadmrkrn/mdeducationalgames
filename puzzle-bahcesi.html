@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Puzzle Bahçesi | MD Education Games</title>
+<meta name="description" content="Puzzle Bahçesi: parçaları sürükleyip resimdeki doğru yerlere bırak. Süreli ve puanlı yapboz oyunu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#11131e;--s0:#0b0e18;--s1:#191b26;--s2:#1d1f2a;--s3:#272935;--s4:#323440;--pk:#ff4e7d;--pk2:#ff2a70;--mint:#34d399;--amber:#fbbf24;--sky:#38bdf8;--tx:#e1e1f1;--mu:#e5bdc2;--mu2:#94a3b8;--line:rgba(255,255,255,.08)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'Nunito Sans',system-ui,sans-serif;min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sky);outline-offset:3px}
+header{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line)}
+.hd{max-width:1120px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+.logo{width:40px;height:40px;border-radius:12px;background:var(--pk);display:grid;place-items:center;font-size:22px;box-shadow:0 6px 18px rgba(255,78,125,.35)}
+.brand b{display:block;color:#ffd9de;font-size:20px;font-weight:800;line-height:1.1}
+.brand small{display:block;color:var(--mu);font-size:12px;font-weight:700;letter-spacing:.05em}
+.hd nav{display:flex;gap:26px;font-weight:700;font-size:14px}
+.hd nav a{text-decoration:none;color:var(--mu);padding-bottom:4px}
+.hd nav a.on{color:#ffb2be;border-bottom:2px solid var(--pk)}
+footer{margin-top:auto;background:var(--s0);border-top:1px solid var(--line);padding:22px 24px;text-align:center;color:var(--mu);font-size:13px}
+@media(max-width:700px){.hd nav{display:none}}
+main{width:100%;max-width:1120px;margin:0 auto;padding:22px 20px 56px}
+.back{display:inline-flex;gap:8px;align-items:center;color:var(--mu);text-decoration:none;font-weight:800;margin-bottom:6px}.back:hover{color:#fff}
+h1{font-size:clamp(32px,5vw,46px);font-weight:900;letter-spacing:-.02em;margin:6px 0 4px;color:#fff;text-shadow:0 0 6px #ff2a70,0 0 14px #ff0055,0 0 24px #e11d48}
+.lead{color:var(--mu);font-size:17px;margin:0 0 6px;max-width:70ch;line-height:1.5}
+.kz{color:var(--mu2);font-size:13px;margin:0 0 16px}.kz b{color:var(--mint);letter-spacing:.08em;margin-right:6px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;border-radius:999px;font-weight:800;padding:12px 26px;background:var(--pk2);color:#fff;box-shadow:0 0 22px rgba(255,42,112,.4);transition:transform .15s,box-shadow .15s;text-decoration:none;font-size:15px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(255,42,112,.6)}.btn:active{transform:scale(.97)}
+.btn.sec{background:var(--s3);box-shadow:none;border:1px solid rgba(255,255,255,.14)}.btn.sec:hover{border-color:var(--pk)}
+.btn.sm{padding:8px 16px;font-size:14px}.btn:disabled{opacity:.4;cursor:default;transform:none}
+.wrap{border-radius:28px}
+.wrap:fullscreen{background:var(--bg);padding:22px;overflow:auto}
+/* hud */
+.hud{display:flex;align-items:center;gap:22px;flex-wrap:wrap;background:var(--s2);border:1px solid var(--line);border-radius:999px;padding:8px 10px 8px 24px;margin-bottom:12px}
+.st{display:flex;flex-direction:column;line-height:1.1;min-width:64px}
+.st small{font-size:11px;letter-spacing:.08em;font-weight:800;color:var(--mu2)}
+.st b{font-size:24px;font-weight:900;font-variant-numeric:tabular-nums}
+.st b.late{color:#fb7185}.st b.good{color:var(--mint)}
+.sp{flex:1}
+/* seviye şeridi */
+.lvs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.lv{background:var(--s2);border:2px solid var(--line);border-radius:16px;padding:7px 14px;cursor:pointer;font-weight:800;font-size:13px;display:flex;flex-direction:column;align-items:center;line-height:1.25;min-width:84px}
+.lv small{font-size:11px;color:var(--amber);letter-spacing:1px;height:14px}
+.lv:hover{border-color:rgba(255,255,255,.3)}
+.lv[aria-current=true]{border-color:var(--pk);box-shadow:0 0 14px rgba(255,78,125,.4);background:#2a1f2c}
+/* sahne */
+.stage{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;background:var(--s1);border:1px solid var(--line);border-radius:28px;padding:20px}
+@media(max-width:900px){.stage{grid-template-columns:1fr;max-width:520px;margin:0 auto}}
+.panel{display:flex;flex-direction:column;gap:10px;min-width:0}
+.pt{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--mu2)}
+.refimg{width:100%;aspect-ratio:1;border-radius:18px;background-size:cover;border:3px solid #3b4fd8;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.cap{font-weight:800;font-size:15px}.cap small{display:block;color:var(--mu2);font-weight:600;font-size:12px;margin-top:2px}
+.nav{display:flex;gap:10px}
+.board{display:grid;gap:3px;padding:6px;background:var(--s2);border:3px solid #3b4fd8;border-radius:18px;aspect-ratio:1}
+.cell{border-radius:6px;background-color:rgba(255,255,255,.05);border:2px dashed rgba(255,255,255,.14);background-repeat:no-repeat;transition:background-color .15s,border-color .15s}
+.cell.over{border-color:var(--pk);background-color:rgba(255,78,125,.2)}
+.cell.filled{border:0;animation:snap .4s}
+.cell.shake{animation:shake .4s;border-color:#f43f5e}
+.tcell{position:relative;border-radius:6px;background:rgba(255,255,255,.03);min-width:0;min-height:0}
+.piece{position:absolute;inset:0;border-radius:6px;background-repeat:no-repeat;cursor:grab;touch-action:none;box-shadow:0 2px 6px rgba(0,0,0,.45);transition:transform .15s,box-shadow .15s;user-select:none;-webkit-user-select:none}
+.piece:hover{transform:scale(1.05);box-shadow:0 0 0 2px #fff,0 6px 14px rgba(0,0,0,.5)}
+.piece.lift{opacity:.3}
+.piece.sel{box-shadow:0 0 0 3px var(--pk2),0 0 16px rgba(255,42,112,.7);transform:scale(1.05)}
+.piece.gone{visibility:hidden}
+.piece.ghost{position:fixed;inset:auto;z-index:9999;pointer-events:none;transform:scale(1.1) rotate(-3deg);opacity:.96;box-shadow:0 14px 30px rgba(0,0,0,.6);cursor:grabbing}
+@keyframes snap{0%{transform:scale(1.12)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+@keyframes floatup{0%{opacity:0;transform:translate(-50%,6px) scale(.7)}15%{opacity:1;transform:translate(-50%,-6px) scale(1.15)}100%{opacity:0;transform:translate(-50%,-64px)}}
+.pts{position:fixed;pointer-events:none;z-index:9998;font-weight:900;font-size:28px;animation:floatup .9s ease-out forwards;text-shadow:0 2px 10px rgba(0,0,0,.7)}
+.pts.p{color:var(--mint)}.pts.m{color:#fb7185}
+.hint{margin:12px 4px 0;font-size:13px;color:var(--mu2);text-align:center;min-height:18px}
+/* sonuç */
+.ov{position:absolute;inset:0;z-index:20;border-radius:28px;display:grid;place-items:center;padding:20px;background:rgba(11,14,24,.86);backdrop-filter:blur(4px)}
+.res{background:var(--s2);border:1px solid rgba(255,255,255,.12);border-radius:28px;padding:28px 32px;max-width:440px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.res h2{margin:4px 0;font-size:30px;font-weight:900}
+.bigstars{font-size:52px;letter-spacing:6px;color:#4b4f63;margin:2px 0 8px}.bigstars .f{color:var(--amber);text-shadow:0 0 20px rgba(251,191,36,.7);display:inline-block;animation:snap .5s both}
+.rows{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:10px 16px;margin:10px 0 16px;font-size:14px;font-weight:700}
+.rows div{display:flex;justify-content:space-between;padding:4px 0}
+.rows .tot{border-top:1px solid var(--line);margin-top:4px;padding-top:8px;font-size:18px;font-weight:900}
+.rows .p{color:var(--mint)}.rows .m{color:#fb7185}
+.mini{display:flex;gap:10px;justify-content:center;margin:0 0 6px}
+.mini span{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:5px 14px;font-size:13px;font-weight:800;color:var(--mu)}
+.acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.badge{display:inline-block;background:rgba(251,191,36,.15);color:var(--amber);border-radius:999px;padding:4px 12px;font-weight:900;font-size:12px;margin:2px}
+.card{background:var(--s1);border:1px solid var(--line);border-radius:24px;padding:22px;margin-top:20px}
+.card h3{margin:0 0 12px;font-size:18px;font-weight:800}
+.rules{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px 28px;font-size:14.5px}
+@media(max-width:760px){.rules{grid-template-columns:1fr}}
+.rules li{display:flex;gap:12px;align-items:flex-start;line-height:1.4}
+.rules .pt2{flex:none;width:76px;text-align:center;border-radius:999px;padding:3px 8px;font-weight:900;font-size:13px;white-space:nowrap}
+.up{background:rgba(52,211,153,.16);color:var(--mint)}.dn{background:rgba(244,63,94,.16);color:#fb7185}.nt{background:rgba(251,191,36,.15);color:var(--amber)}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header><div class="hd">
+  <a class="brand" href="index.html"><span class="logo" aria-hidden="true">🎮</span><span><b>MD Education Games</b><small>A product of Codeix</small></span></a>
+  <nav aria-label="Ana menü"><a href="index.html">Anasayfa</a><a href="index.html">Hakkımızda</a><a class="on" href="index.html">Oyunlar</a><a href="index.html">İletişim</a></nav>
+</div></header>
+
+<main>
+  <a class="back" href="mouse-oyunlari.html">← Oyunlara dön</a>
+  <h1>Puzzle Bahçesi</h1>
+  <p class="lead">Parçaları sürükleyip örnek resimdeki doğru yerlerine bırak. Hızlı ve hatasız tamamla, yıldızları topla!</p>
+  <p class="kz"><b>KAZANIM</b>Parça-bütün ilişkisini kurar, görsel dikkat ve el-göz koordinasyonunu geliştirir.</p>
+
+  <div class="wrap" id="wrap">
+    <div class="hud">
+      <div class="st"><small>PUAN</small><b id="sc">0</b></div>
+      <div class="st"><small>SÜRE</small><b id="tm">0:00</b></div>
+      <div class="st"><small>HEDEF SÜRE</small><b id="par" style="color:var(--mu)">0:00</b></div>
+      <div class="st"><small>YANLIŞ</small><b id="wr">0</b></div>
+      <span class="sp"></span>
+      <button class="btn sec sm" id="snd" aria-label="Sesi aç/kapat">🔊</button>
+      <button class="btn sec sm" id="fs" aria-label="Tam ekran">⛶</button>
+      <button class="btn sec sm" id="rs">↻ Yeniden Başlat</button>
+    </div>
+    <div class="lvs" id="lvs" role="group" aria-label="Seviyeler"></div>
+
+    <div class="stage" id="stage">
+      <section class="panel">
+        <div class="pt">ÖRNEK RESİM</div>
+        <div class="refimg" id="ref" role="img" aria-label="Örnek resim"></div>
+        <div class="cap" id="cap"></div>
+        <div class="nav"><button class="btn sm" id="prev">← Önceki</button><button class="btn sm" id="next">Sonraki →</button></div>
+      </section>
+      <section class="panel"><div class="pt">YAPBOZ ALANI</div><div class="board" id="board"></div></section>
+      <section class="panel"><div class="pt">PARÇALAR</div><div class="board" id="tray" style="background:transparent;border-color:rgba(255,255,255,.12)"></div></section>
+      <div class="ov" id="ov" hidden></div>
+    </div>
+    <p class="hint" id="hint">Bir parçayı sürükleyip yapboz alanında doğru kareye bırak. (Parçaya tıklayıp sonra kareye de tıklayabilirsin.)</p>
+  </div>
+
+  <div class="card"><h3>🏆 Puan nasıl kazanılır?</h3>
+    <ul class="rules">
+      <li><span class="pt2 up">+10</span><span>Her doğru yerleştirilen parça</span></li>
+      <li><span class="pt2 dn">−5</span><span>Yanlış kareye bırakılan parça (puan 0’ın altına inmez)</span></li>
+      <li><span class="pt2 up">+0…50</span><span>Hız bonusu: hedef süreden ne kadar önce bitirirsen o kadar yüksek</span></li>
+      <li><span class="pt2 up">+20</span><span>Hatasız bonusu: hiç yanlış yapmadan bitirirsen</span></li>
+      <li><span class="pt2 nt">★★★</span><span>Hedef süre içinde ve en fazla 1 yanlışla bitir</span></li>
+      <li><span class="pt2 nt">★★</span><span>Hedef sürenin 1,6 katı içinde ve en fazla 3 yanlışla bitir</span></li>
+    </ul></div>
+</main>
+<footer>© 2025 MD Education Games. Tüm hakları saklıdır.</footer>
+
+<script>
+'use strict';
+const $=s=>document.querySelector(s);
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const KEY='mdg_puzzle_bahcesi_v1';
+const SAVE=store.get(KEY,{prog:{},sound:true});
+
+/* ================= RESİMLER (özgün SVG çizimler) ================= */
+const rng=s=>()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+const wrapSVG=b=>`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">${b}</svg>`;
+const cloud=(x,y,s,o=.92)=>`<g transform="translate(${x} ${y}) scale(${s})" opacity="${o}" fill="#fff"><ellipse rx="72" ry="26"/><circle cx="-30" cy="-18" r="30"/><circle cx="14" cy="-30" r="38"/><circle cx="48" cy="-10" r="26"/></g>`;
+const pine=(x,y,s,c='#166534',snow=0)=>`<g transform="translate(${x} ${y}) scale(${s})"><rect x="-8" y="0" width="16" height="40" fill="#7c4a21"/><polygon points="0,-110 -48,-30 48,-30" fill="${c}"/><polygon points="0,-72 -60,10 60,10" fill="${c}"/><polygon points="0,-36 -72,50 72,50" fill="${c}"/>${snow?'<polygon points="0,-110 -20,-78 20,-78" fill="#fff"/><polygon points="0,-72 -28,-34 28,-34" fill="#fff" opacity=".92"/><polygon points="0,-36 -34,6 34,6" fill="#fff" opacity=".85"/>':''}</g>`;
+const star=(x,y,r,c)=>{let p='';for(let i=0;i<10;i++){const rr=i%2?r*.45:r,a=-Math.PI/2+i*Math.PI/5;p+=(x+rr*Math.cos(a)).toFixed(1)+','+(y+rr*Math.sin(a)).toFixed(1)+' '}return`<polygon points="${p}" fill="${c}"/>`};
+const flower=(x,y,s,c,cc='#fde047')=>{let p='';for(let i=0;i<6;i++){const a=i*Math.PI/3;p+=`<circle cx="${(Math.cos(a)*14).toFixed(1)}" cy="${(Math.sin(a)*14).toFixed(1)}" r="11" fill="${c}"/>`}return`<g transform="translate(${x} ${y}) scale(${s})">${p}<circle r="9" fill="${cc}"/></g>`};
+
+function sMountain(){const r=rng(11);let b=`<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7dd3fc"/><stop offset=".62" stop-color="#fde9b8"/></linearGradient></defs><rect width="800" height="800" fill="url(#g)"/>
+<circle cx="640" cy="140" r="96" fill="#fde047" opacity=".3"/><circle cx="640" cy="140" r="64" fill="#fde047"/>`;
+[[140,130,1],[430,80,.8],[700,320,.7],[250,300,.6]].forEach(([x,y,s])=>b+=cloud(x,y,s));
+[[330,190],[392,226],[300,246]].forEach(([x,y])=>b+=`<path d="M${x} ${y} q12 -14 24 0 q12 -14 24 0" fill="none" stroke="#334155" stroke-width="4" stroke-linecap="round"/>`);
+b+=`<polygon points="-30,540 190,250 410,540" fill="#94a3b8"/><polygon points="190,250 236,320 206,306 190,334 170,306 144,320" fill="#fff"/>
+<polygon points="240,570 520,190 810,570" fill="#64748b"/><polygon points="520,190 578,280 546,268 520,304 494,268 462,280" fill="#fff"/><polygon points="520,190 578,280 560,300 530,260" fill="#475569" opacity=".35"/>
+<path d="M0 560 Q200 470 400 560 T800 540 V800 H0Z" fill="#86efac"/><path d="M0 640 Q250 560 500 650 T800 620 V800 H0Z" fill="#4ade80"/>
+<path d="M540 800 Q490 730 570 690 Q650 650 610 610 Q580 580 640 566" stroke="#7dd3fc" stroke-width="50" fill="none" stroke-linecap="round"/><path d="M540 800 Q490 730 570 690 Q650 650 610 610 Q580 580 640 566" stroke="#fff" stroke-opacity=".45" stroke-width="9" fill="none" stroke-linecap="round"/>
+<path d="M0 730 Q300 670 800 750 V800 H0Z" fill="#22c55e"/>`;
+b+=pine(80,610,.9)+pine(150,640,.7)+pine(700,590,.8,'#14532d')+pine(745,640,.6)+pine(330,590,.55,'#15803d');
+b+=`<g transform="translate(210 650)"><rect x="-40" y="-40" width="80" height="60" fill="#fff"/><polygon points="-52,-40 0,-82 52,-40" fill="#dc2626"/><rect x="-10" y="-14" width="22" height="34" fill="#92400e"/><rect x="-32" y="-28" width="16" height="16" fill="#7dd3fc"/></g>`;
+for(let i=0;i<28;i++)b+=`<circle cx="${r()*800}" cy="${690+r()*100}" r="${3+r()*4}" fill="${['#fde047','#f472b6','#fff','#fb923c'][i%4]}"/>`;
+return wrapSVG(b)}
+
+function sSea(){const r=rng(23);let b=`<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#38bdf8"/><stop offset=".6" stop-color="#1d4ed8"/><stop offset="1" stop-color="#1e3a8a"/></linearGradient></defs><rect width="800" height="800" fill="url(#g)"/>`;
+[[120,0,260],[330,0,200],[560,0,300],[720,0,160]].forEach(([x,,w])=>b+=`<polygon points="${x},0 ${x+w*.5},0 ${x+w*.2},620 ${x-w*.3},620" fill="#fff" opacity=".07"/>`);
+const fish=(x,y,s,c,f=1)=>`<g transform="translate(${x} ${y}) scale(${s*f} ${s})"><polygon points="-34,0 -64,-24 -64,24" fill="${c}"/><ellipse rx="44" ry="27" fill="${c}"/><path d="M-6 -26 Q6 0 -6 26" stroke="#fff" stroke-opacity=".55" stroke-width="7" fill="none"/><path d="M-6 -26 Q12 -50 30 -22Z" fill="${c}" opacity=".8"/><circle cx="24" cy="-7" r="7" fill="#fff"/><circle cx="26" cy="-7" r="3.4" fill="#0f172a"/></g>`;
+b+=fish(160,150,1.1,'#fb923c')+fish(540,110,.9,'#fde047',-1)+fish(300,300,.8,'#f472b6')+fish(650,330,1.2,'#34d399',-1)+fish(110,430,.7,'#a78bfa')+fish(470,480,1,'#f87171',-1);
+b+=`<g transform="translate(400 210)"><path d="M-48 0 Q-48 -52 0 -52 Q48 -52 48 0Z" fill="#f9a8d4" opacity=".92"/><g stroke="#f9a8d4" stroke-width="6" fill="none" stroke-linecap="round" opacity=".9"><path d="M-32 0 Q-42 30 -30 56 Q-24 76 -34 96"/><path d="M-10 0 Q-20 34 -8 62 Q0 82 -10 104"/><path d="M12 0 Q2 30 14 58 Q22 78 12 98"/><path d="M34 0 Q24 28 36 54"/></g></g>`;
+for(let i=0;i<32;i++){const x=r()*800,y=40+r()*560,s=4+r()*14;b+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${s.toFixed(1)}" fill="#fff" fill-opacity=".14" stroke="#fff" stroke-opacity=".6" stroke-width="2"/>`}
+b+=`<path d="M0 690 Q200 640 400 690 T800 670 V800 H0Z" fill="#fde68a"/><path d="M0 740 Q250 700 520 745 T800 730 V800 H0Z" fill="#fcd34d"/>`;
+[[60,700],[190,720],[600,700],[740,705]].forEach(([x,y],i)=>b+=`<path d="M${x} ${y} Q${x-26} ${y-60} ${x} ${y-120} Q${x+26} ${y-180} ${x} ${y-230}" stroke="${i%2?'#16a34a':'#22c55e'}" stroke-width="16" fill="none" stroke-linecap="round"/>`);
+b+=`<ellipse cx="330" cy="725" rx="70" ry="38" fill="#64748b"/><ellipse cx="380" cy="715" rx="46" ry="26" fill="#94a3b8"/>`;
+b+=star(470,720,38,'#fb923c')+star(100,770,26,'#f43f5e')+`<g stroke="#fb7185" stroke-width="13" fill="none" stroke-linecap="round"><path d="M520 740 V650 M520 690 L490 650 M520 690 L552 654"/><path d="M660 745 V680 M660 710 L636 684"/></g>`;
+b+=`<g transform="translate(250 770)"><ellipse rx="34" ry="22" fill="#ef4444"/><circle cx="-14" cy="-20" r="6" fill="#fff"/><circle cx="14" cy="-20" r="6" fill="#fff"/><path d="M-34 -4 q-22 -18 -8 -34 M34 -4 q22 -18 8 -34" stroke="#ef4444" stroke-width="8" fill="none" stroke-linecap="round"/></g>`;
+return wrapSVG(b)}
+
+function sSpace(){const r=rng(37);let b=`<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f172a"/><stop offset="1" stop-color="#3b1d6e"/></linearGradient><radialGradient id="n1"><stop offset="0" stop-color="#c084fc" stop-opacity=".55"/><stop offset="1" stop-color="#c084fc" stop-opacity="0"/></radialGradient><radialGradient id="n2"><stop offset="0" stop-color="#38bdf8" stop-opacity=".4"/><stop offset="1" stop-color="#38bdf8" stop-opacity="0"/></radialGradient></defs><rect width="800" height="800" fill="url(#g)"/><circle cx="560" cy="260" r="300" fill="url(#n1)"/><circle cx="200" cy="640" r="280" fill="url(#n2)"/>`;
+for(let i=0;i<110;i++){const x=r()*800,y=r()*800;b+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(.8+r()*2.4).toFixed(1)}" fill="${['#fff','#fde68a','#bae6fd'][i%3]}" opacity="${(.5+r()*.5).toFixed(2)}"/>`}
+for(let i=0;i<8;i++)b+=star(40+r()*720,40+r()*720,10+r()*8,'#fef08a');
+b+=`<g transform="translate(190 200)"><circle r="76" fill="#fbbf24"/><path d="M-70 -22 Q0 -34 70 -22 M-76 6 Q0 -6 76 6 M-68 34 Q0 22 68 34" stroke="#f59e0b" stroke-width="12" fill="none" opacity=".7"/><ellipse rx="140" ry="30" transform="rotate(-18)" fill="none" stroke="#fde68a" stroke-width="12" opacity=".9"/><path d="M-76 -4 A76 76 0 0 0 76 -4" fill="none"/></g>`;
+b+=`<g transform="translate(640 560)"><circle r="110" fill="#fb7185"/><circle cx="-36" cy="-30" r="22" fill="#e11d48" opacity=".6"/><circle cx="34" cy="26" r="30" fill="#e11d48" opacity=".5"/><circle cx="-10" cy="60" r="14" fill="#e11d48" opacity=".55"/><circle cx="56" cy="-54" r="12" fill="#e11d48" opacity=".5"/></g>`;
+b+=`<g transform="translate(110 640)"><circle r="56" fill="#cbd5e1"/><circle cx="-18" cy="-12" r="12" fill="#94a3b8"/><circle cx="16" cy="16" r="16" fill="#94a3b8"/><circle cx="20" cy="-26" r="7" fill="#94a3b8"/></g>`;
+b+=`<g transform="translate(680 150)"><circle r="48" fill="#3b82f6"/><path d="M-30 -20 Q-10 -34 8 -22 Q22 -10 4 6 Q-18 14 -30 -20Z M14 18 Q34 8 40 22 Q30 40 14 18Z" fill="#4ade80"/></g>`;
+b+=`<g transform="translate(420 430) rotate(-35)"><path d="M0 -150 Q46 -80 40 40 H-40 Q-46 -80 0 -150Z" fill="#f1f5f9"/><path d="M0 -150 Q22 -122 28 -96 H-28 Q-22 -122 0 -150Z" fill="#ef4444"/><circle cy="-44" r="22" fill="#38bdf8" stroke="#475569" stroke-width="6"/><path d="M-40 10 L-76 66 L-40 46Z M40 10 L76 66 L40 46Z" fill="#ef4444"/><rect x="-40" y="40" width="80" height="14" fill="#94a3b8"/><path d="M-26 54 Q0 150 26 54Z" fill="#fb923c"/><path d="M-14 54 Q0 110 14 54Z" fill="#fde047"/></g>`;
+b+=`<path d="M300 80 L130 20" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".7"/><circle cx="300" cy="80" r="9" fill="#fff"/>`;
+b+=`<ellipse cx="480" cy="720" rx="26" ry="16" fill="#78716c"/><ellipse cx="350" cy="560" rx="18" ry="11" fill="#78716c"/><ellipse cx="560" cy="110" rx="22" ry="13" fill="#78716c"/>`;
+return wrapSVG(b)}
+
+function sFarm(){const r=rng(41);let b=`<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7dd3fc"/><stop offset="1" stop-color="#e0f2fe"/></linearGradient></defs><rect width="800" height="800" fill="url(#g)"/><circle cx="110" cy="120" r="80" fill="#fde047" opacity=".3"/><circle cx="110" cy="120" r="52" fill="#fde047"/>`;
+[[330,100,1],[600,160,.9],[470,260,.6],[740,60,.5]].forEach(([x,y,s])=>b+=cloud(x,y,s));
+[[260,190],[310,214]].forEach(([x,y])=>b+=`<path d="M${x} ${y} q10 -12 20 0 q10 -12 20 0" fill="none" stroke="#334155" stroke-width="4" stroke-linecap="round"/>`);
+b+=`<path d="M0 480 Q200 400 420 470 T800 440 V800 H0Z" fill="#86efac"/><path d="M0 580 Q260 510 520 590 T800 560 V800 H0Z" fill="#4ade80"/><path d="M0 700 Q300 650 800 720 V800 H0Z" fill="#22c55e"/>
+<g transform="translate(300 380)"><rect x="-34" y="-60" width="68" height="150" fill="#cbd5e1"/><path d="M-34 -60 A34 34 0 0 1 34 -60Z" fill="#94a3b8"/><rect x="-34" y="-10" width="68" height="8" fill="#94a3b8"/><rect x="-34" y="30" width="68" height="8" fill="#94a3b8"/></g>
+<g transform="translate(540 470)"><rect x="-120" y="-100" width="240" height="190" fill="#dc2626"/><polygon points="-140,-100 0,-190 140,-100" fill="#7f1d1d"/><rect x="-56" y="-14" width="112" height="104" fill="#fff"/><path d="M-56 -14 L56 90 M56 -14 L-56 90" stroke="#dc2626" stroke-width="10"/><rect x="-56" y="-14" width="112" height="104" fill="none" stroke="#dc2626" stroke-width="10"/><rect x="-22" y="-146" width="44" height="40" fill="#fde68a" stroke="#fff" stroke-width="6"/></g>`;
+b+=pine(70,520,.8,'#15803d')+`<g transform="translate(120 640)"><ellipse rx="56" ry="38" fill="#fff"/><circle cx="-26" cy="-16" r="22" fill="#fff"/><circle cx="26" cy="-18" r="22" fill="#fff"/><circle cx="0" cy="-28" r="24" fill="#fff"/><ellipse cx="62" cy="-4" rx="24" ry="22" fill="#334155"/><rect x="-30" y="30" width="9" height="28" fill="#334155"/><rect x="22" y="30" width="9" height="28" fill="#334155"/><circle cx="68" cy="-8" r="3.5" fill="#fff"/></g>`;
+b+=`<g transform="translate(400 690)"><ellipse rx="60" ry="46" fill="#fbbf24"/><path d="M-50 -10 Q0 -36 50 -10 M-56 14 Q0 -8 56 14" stroke="#d97706" stroke-width="6" fill="none"/></g>`;
+for(let i=0;i<10;i++)b+=`<rect x="${i*84-4}" y="${650+(i%2)*4}" width="12" height="90" fill="#a16207"/>`;
+b+=`<rect x="0" y="672" width="800" height="12" fill="#ca8a04"/><rect x="0" y="708" width="800" height="12" fill="#ca8a04"/>`;
+b+=`<g transform="translate(690 650)"><ellipse rx="26" ry="22" fill="#fff"/><circle cx="20" cy="-14" r="12" fill="#fff"/><polygon points="26,-14 40,-10 26,-6" fill="#f59e0b"/><polygon points="22,-26 26,-38 30,-26" fill="#ef4444"/><circle cx="22" cy="-16" r="2.5" fill="#111"/></g>`;
+[[60,760],[240,770],[560,765],[760,755]].forEach(([x,y])=>b+=`<path d="M${x} ${y} V${y-60}" stroke="#16a34a" stroke-width="7"/><circle cx="${x}" cy="${y-68}" r="22" fill="#fbbf24"/><circle cx="${x}" cy="${y-68}" r="11" fill="#7c2d12"/>`);
+for(let i=0;i<22;i++)b+=`<circle cx="${(r()*800).toFixed(0)}" cy="${(520+r()*270).toFixed(0)}" r="${(2+r()*3).toFixed(1)}" fill="${['#fff','#f472b6','#fde047'][i%3]}"/>`;
+return wrapSVG(b)}
+
+function sRainbow(){const r=rng(53);let b=`<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#93c5fd"/><stop offset="1" stop-color="#fef9c3"/></linearGradient></defs><rect width="800" height="800" fill="url(#g)"/><circle cx="90" cy="90" r="46" fill="#fde047"/>`;
+['#ef4444','#fb923c','#fde047','#22c55e','#38bdf8','#6366f1','#a855f7'].forEach((c,i)=>b+=`<path d="M${60+i*24} 560 A${340-i*24} ${340-i*24} 0 0 1 ${740-i*24} 560" fill="none" stroke="${c}" stroke-width="26" opacity=".95"/>`);
+b+=cloud(90,560,1.3,1)+cloud(720,560,1.3,1)+cloud(420,120,.9)+cloud(660,230,.6)+cloud(240,260,.55);
+b+=`<path d="M0 640 Q200 590 400 640 T800 620 V800 H0Z" fill="#86efac"/><path d="M0 720 Q250 680 500 725 T800 705 V800 H0Z" fill="#4ade80"/>`;
+const cols=['#f472b6','#fb923c','#a78bfa','#fb7185','#38bdf8','#fbbf24'];
+for(let i=0;i<9;i++){const x=50+i*90+(i%2)*16,y=650+(i%3)*45;b+=`<path d="M${x} ${y+60} Q${x+10} ${y+30} ${x} ${y}" stroke="#15803d" stroke-width="7" fill="none"/>`+flower(x,y,1.3+(i%3)*.15,cols[i%6])}
+b+=`<g transform="translate(560 320)"><ellipse cx="-26" cy="-8" rx="34" ry="22" fill="#f472b6" transform="rotate(-20 -26 -8)"/><ellipse cx="26" cy="-8" rx="34" ry="22" fill="#a78bfa" transform="rotate(20 26 -8)"/><ellipse cx="-20" cy="22" rx="22" ry="15" fill="#fb923c"/><ellipse cx="20" cy="22" rx="22" ry="15" fill="#38bdf8"/><rect x="-4" y="-22" width="8" height="52" rx="4" fill="#1e293b"/><path d="M-2 -22 Q-14 -44 -22 -40 M2 -22 Q14 -44 22 -40" stroke="#1e293b" stroke-width="3" fill="none"/></g>`;
+b+=`<g transform="translate(200 690)"><ellipse rx="28" ry="24" fill="#ef4444"/><path d="M0 -24 V24" stroke="#111" stroke-width="3"/><circle cx="-10" cy="-6" r="5" fill="#111"/><circle cx="12" cy="6" r="5" fill="#111"/><circle cx="-12" cy="10" r="4" fill="#111"/><circle cy="-28" r="11" fill="#111"/></g>`;
+b+=`<g transform="translate(330 400)"><ellipse rx="22" ry="16" fill="#fde047"/><path d="M-12 -12 V12 M0 -14 V14 M12 -12 V12" stroke="#111" stroke-width="6"/><ellipse cx="-6" cy="-20" rx="14" ry="9" fill="#bae6fd" opacity=".85"/><ellipse cx="10" cy="-20" rx="14" ry="9" fill="#bae6fd" opacity=".85"/></g>`;
+b+=`<g transform="translate(700 770)"><path d="M-30 0 Q0 -50 30 0Z" fill="#ef4444"/><circle cx="-8" cy="-14" r="5" fill="#fff"/><circle cx="10" cy="-8" r="4" fill="#fff"/><rect x="-8" y="0" width="16" height="26" fill="#fef3c7"/></g>`;
+for(let i=0;i<10;i++)b+=star(r()*800,r()*300,6+r()*6,'#fff');
+return wrapSVG(b)}
+
+function sWinter(){const r=rng(67);let b=`<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e1b4b"/><stop offset=".55" stop-color="#3b82f6"/><stop offset="1" stop-color="#dbeafe"/></linearGradient></defs><rect width="800" height="800" fill="url(#g)"/>`;
+b+=`<path d="M0 220 Q200 120 400 210 T800 160 V260 Q600 330 400 270 T0 300Z" fill="#4ade80" opacity=".3"/><path d="M0 330 Q220 230 440 320 T800 280 V350 Q600 410 400 360 T0 400Z" fill="#a78bfa" opacity=".28"/>`;
+for(let i=0;i<60;i++)b+=`<circle cx="${(r()*800).toFixed(0)}" cy="${(r()*480).toFixed(0)}" r="${(1+r()*2).toFixed(1)}" fill="#fff" opacity="${(.4+r()*.6).toFixed(2)}"/>`;
+b+=`<circle cx="640" cy="110" r="58" fill="#fef9c3"/><circle cx="622" cy="98" r="10" fill="#fde68a"/><circle cx="660" cy="130" r="14" fill="#fde68a"/><circle cx="658" cy="88" r="6" fill="#fde68a"/>`;
+b+=`<path d="M0 560 Q200 500 420 560 T800 540 V800 H0Z" fill="#e0f2fe"/><path d="M0 650 Q260 590 540 660 T800 640 V800 H0Z" fill="#fff"/>`;
+b+=pine(70,520,1.1,'#14532d',1)+pine(170,560,.8,'#166534',1)+pine(720,500,1.2,'#14532d',1)+pine(620,560,.75,'#166534',1)+pine(300,540,.6,'#15803d',1);
+b+=`<g transform="translate(540 560)"><rect x="-56" y="-40" width="112" height="80" fill="#92400e"/><polygon points="-70,-40 0,-92 70,-40" fill="#fff"/><rect x="-14" y="-4" width="28" height="44" fill="#451a03"/><rect x="26" y="-24" width="22" height="22" fill="#fde047"/><rect x="-46" y="-24" width="22" height="22" fill="#fde047"/><rect x="30" y="-96" width="16" height="36" fill="#78350f"/></g>`;
+b+=`<g transform="translate(400 640)"><circle cy="0" r="86" fill="#fff" stroke="#bfdbfe" stroke-width="4"/><circle cy="-112" r="62" fill="#fff" stroke="#bfdbfe" stroke-width="4"/><circle cy="-196" r="44" fill="#fff" stroke="#bfdbfe" stroke-width="4"/><rect x="-34" y="-264" width="68" height="46" fill="#1e293b"/><rect x="-50" y="-224" width="100" height="12" fill="#1e293b"/><rect x="-34" y="-232" width="68" height="10" fill="#dc2626"/><circle cx="-14" cy="-206" r="5" fill="#111"/><circle cx="14" cy="-206" r="5" fill="#111"/><polygon points="0,-194 40,-186 0,-180" fill="#f97316"/><circle cy="-130" r="6" fill="#111"/><circle cy="-100" r="6" fill="#111"/><circle cy="-20" r="7" fill="#111"/><circle cy="14" r="7" fill="#111"/><path d="M-58 -120 L-130 -170 M58 -120 L130 -170" stroke="#78350f" stroke-width="8" stroke-linecap="round"/><path d="M-44 -164 Q0 -150 44 -164" stroke="#dc2626" stroke-width="12" fill="none" stroke-linecap="round"/></g>`;
+for(let i=0;i<70;i++)b+=`<circle cx="${(r()*800).toFixed(0)}" cy="${(r()*800).toFixed(0)}" r="${(2+r()*3.5).toFixed(1)}" fill="#fff" opacity=".85"/>`;
+return wrapSVG(b)}
+
+/* ================= SEVİYELER ================= */
+const LEVELS=[
+ {name:'Dağ Manzarası',n:3,fn:sMountain},{name:'Deniz Altı',n:3,fn:sSea},{name:'Uzay Yolculuğu',n:3,fn:sSpace},
+ {name:'Çiftlik',n:3,fn:sFarm},{name:'Gökkuşağı Bahçesi',n:3,fn:sRainbow},{name:'Kış Masalı',n:3,fn:sWinter}
+];
+LEVELS.forEach(L=>{L.par=L.n*L.n*7+10;L.url=`url('data:image/svg+xml;utf8,${encodeURIComponent(L.fn()).replace(/'/g,'%27')}')`});
+
+/* ================= OYUN ================= */
+const G={lv:0,n:2,score:0,pen:0,mistakes:0,placed:0,t0:0,elapsed:0,timer:null,done:false,sel:null};
+const fmt=s=>{s=Math.floor(s);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+const stars=n=>'★'.repeat(n)+'☆'.repeat(3-n);
+let AC=null;
+function beep(f,d,type='sine',at=0,vol=.1){if(!SAVE.sound)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+at;o.type=type;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d)}catch(e){}}
+const sfx={ok(){beep(660,.1,'triangle');beep(880,.14,'triangle',.08)},bad(){beep(190,.22,'sawtooth',0,.07)},win(){[523,659,784,1047].forEach((f,i)=>beep(f,.22,'triangle',i*.12))}};
+
+function renderLevels(){
+  $('#lvs').innerHTML=LEVELS.map((L,i)=>{const p=SAVE.prog[i];
+    return `<button class="lv" data-i="${i}" aria-current="${i===G.lv}"><span>Seviye ${i+1}</span><small>${p?stars(p.stars):'☆☆☆'}</small></button>`}).join('');
+}
+function pos(k,n){const c=k%n,r=Math.floor(k/n),d=n-1;return `${c/d*100}% ${r/d*100}%`}
+function load(i){
+  clearInterval(G.timer);
+  const L=LEVELS[i],n=L.n,N=n*n;
+  Object.assign(G,{lv:i,n,score:0,pen:0,mistakes:0,placed:0,t0:0,elapsed:0,timer:null,done:false,sel:null});
+  $('#ov').hidden=true;$('#sc').textContent=0;$('#wr').textContent=0;$('#tm').textContent='0:00';$('#tm').className='';
+  $('#par').textContent=fmt(L.par);
+  $('#ref').style.backgroundImage=L.url;
+  $('#cap').innerHTML=`${L.name}<small>Seviye ${i+1} · ${n}×${n} · ${N} parça${SAVE.prog[i]?' · En iyi: '+SAVE.prog[i].best+' puan':''}</small>`;
+  $('#prev').disabled=i===0;$('#next').disabled=i===LEVELS.length-1;
+  const bd=$('#board'),tr=$('#tray');
+  [bd,tr].forEach(e=>e.style.gridTemplateColumns=`repeat(${n},1fr)`);
+  bd.innerHTML=Array.from({length:N},(_,k)=>`<div class="cell" data-i="${k}"></div>`).join('');
+  let order=[...Array(N).keys()];
+  do{for(let a=N-1;a>0;a--){const b=Math.floor(Math.random()*(a+1));[order[a],order[b]]=[order[b],order[a]]}}while(order.every((v,k)=>v===k));
+  tr.innerHTML=order.map(id=>`<div class="tcell"><div class="piece" data-id="${id}" style="background-image:${L.url};background-size:${n*100}% ${n*100}%;background-position:${pos(id,n)}"></div></div>`).join('');
+  renderLevels();
+  $('#hint').textContent='Bir parçayı sürükleyip yapboz alanında doğru kareye bırak. (Parçaya tıklayıp sonra kareye de tıklayabilirsin.)';
+}
+function startTimer(){
+  if(G.timer||G.done)return;G.t0=performance.now();
+  G.timer=setInterval(()=>{G.elapsed=(performance.now()-G.t0)/1000;const t=$('#tm');t.textContent=fmt(G.elapsed);t.className=G.elapsed>LEVELS[G.lv].par?'late':''},250);
+}
+function setScore(v){G.score=v;$('#sc').textContent=v}
+function popAt(x,y,txt,cls){const p=document.createElement('div');p.className='pts '+cls;p.textContent=txt;p.style.left=x+'px';p.style.top=y+'px';document.body.appendChild(p);setTimeout(()=>p.remove(),900)}
+function center(el){const r=el.getBoundingClientRect();return[r.left+r.width/2,r.top+r.height/3]}
+
+function attempt(id,cell){
+  if(G.done||cell.classList.contains('filled'))return;
+  const piece=document.querySelector(`.piece[data-id="${id}"]`);
+  if(id===+cell.dataset.i){
+    cell.classList.add('filled');cell.style.backgroundImage=LEVELS[G.lv].url;cell.style.backgroundSize=`${G.n*100}% ${G.n*100}%`;cell.style.backgroundPosition=pos(id,G.n);
+    piece.classList.add('gone');piece.classList.remove('sel');G.sel=null;G.placed++;setScore(G.score+10);sfx.ok();
+    const[x,y]=center(cell);popAt(x,y,'+10','p');
+    if(G.placed===G.n*G.n)finish();
+  }else{
+    G.mistakes++;$('#wr').textContent=G.mistakes;const l=Math.min(5,G.score);G.pen+=l;setScore(G.score-l);sfx.bad();
+    cell.classList.remove('shake');void cell.offsetWidth;cell.classList.add('shake');setTimeout(()=>cell.classList.remove('shake'),450);
+    const[x,y]=center(cell);if(l)popAt(x,y,'−'+l,'m');
+    piece.classList.remove('sel');G.sel=null;
+    $('#hint').textContent='Bu parça buraya ait değil. Örnek resme bakıp tekrar dene!';
+  }
+}
+
+/* sürükle-bırak */
+let D=null;
+document.addEventListener('pointerdown',e=>{
+  const p=e.target.closest('.piece');if(!p||p.classList.contains('ghost')||p.classList.contains('gone')||G.done||e.button>0)return;
+  e.preventDefault();startTimer();
+  const r=p.getBoundingClientRect(),g=p.cloneNode(false);g.className='piece ghost';
+  g.style.width=r.width+'px';g.style.height=r.height+'px';g.style.left=r.left+'px';g.style.top=r.top+'px';document.body.appendChild(g);
+  D={p,g,ox:e.clientX-r.left,oy:e.clientY-r.top,sx:e.clientX,sy:e.clientY,moved:false,over:null};p.classList.add('lift');
+});
+document.addEventListener('pointermove',e=>{
+  if(!D)return;
+  if(!D.moved&&Math.hypot(e.clientX-D.sx,e.clientY-D.sy)>6)D.moved=true;
+  D.g.style.left=(e.clientX-D.ox)+'px';D.g.style.top=(e.clientY-D.oy)+'px';
+  const c=document.elementFromPoint(e.clientX,e.clientY)?.closest('.cell');
+  if(D.over&&D.over!==c)D.over.classList.remove('over');
+  if(c&&!c.classList.contains('filled'))c.classList.add('over');D.over=c||null;
+});
+function endDrag(e){
+  if(!D)return;const d=D;D=null;d.g.remove();d.p.classList.remove('lift');if(d.over)d.over.classList.remove('over');
+  if(!d.moved){const was=d.p.classList.contains('sel');document.querySelectorAll('.piece.sel').forEach(x=>x.classList.remove('sel'));if(!was){d.p.classList.add('sel');G.sel=d.p}else G.sel=null;return}
+  const c=document.elementFromPoint(e.clientX,e.clientY)?.closest('.cell');
+  if(c)attempt(+d.p.dataset.id,c);
+}
+document.addEventListener('pointerup',endDrag);document.addEventListener('pointercancel',endDrag);
+$('#board').addEventListener('click',e=>{const c=e.target.closest('.cell');if(c&&G.sel&&!D)attempt(+G.sel.dataset.id,c)});
+
+/* bitiş */
+function finish(){
+  G.done=true;clearInterval(G.timer);G.elapsed=(performance.now()-G.t0)/1000;$('#tm').textContent=fmt(G.elapsed);
+  const L=LEVELS[G.lv],N=G.n*G.n,t=G.elapsed;
+  const tb=t<L.par?Math.round(50*(1-t/L.par)):0,pb=G.mistakes===0?20:0,total=G.score+tb+pb;
+  const st=(t<=L.par&&G.mistakes<=1)?3:(t<=L.par*1.6&&G.mistakes<=3)?2:1;
+  const prev=SAVE.prog[G.lv]||{stars:0,best:0,time:null},rec=total>prev.best;
+  SAVE.prog[G.lv]={stars:Math.max(prev.stars,st),best:Math.max(prev.best,total),time:prev.time?Math.min(prev.time,t):t};store.set(KEY,SAVE);
+  setScore(total);$('#tm').className=t<=L.par?'good':'late';
+  const next=G.lv<LEVELS.length-1;
+  $('#ov').innerHTML=`<div class="res"><div style="font-size:14px;font-weight:800;letter-spacing:.1em;color:var(--mint)">SEVİYE ${G.lv+1} TAMAMLANDI</div><h2>${st===3?'Mükemmel!':st===2?'Çok iyi!':'Tamamlandı!'}</h2>
+  <div class="bigstars">${[1,2,3].map(i=>`<span class="${i<=st?'f':''}" style="animation-delay:${i*.2}s">★</span>`).join('')}</div>
+  ${rec?'<span class="badge">🏅 Yeni rekor!</span>':''}
+  <div class="mini"><span>⏱ ${fmt(t)} (hedef ${fmt(L.par)})</span><span>❌ ${G.mistakes} yanlış</span></div>
+  <div class="rows"><div><span>Doğru yerleştirme (${N} parça)</span><span class="p">+${N*10}</span></div>
+  <div><span>Yanlış yerleştirme</span><span class="m">−${G.pen}</span></div>
+  <div><span>Hız bonusu</span><span class="p">+${tb}</span></div>
+  <div><span>Hatasız bonusu</span><span class="p">+${pb}</span></div>
+  <div class="tot"><span>Toplam puan</span><span>${total}</span></div></div>
+  <div class="acts"><button class="btn sec" id="again">↻ Tekrar Oyna</button>${next?'<button class="btn" id="nxt">Sonraki Seviye →</button>':'<a class="btn" href="mouse-oyunlari.html">Oyunlara Dön</a>'}</div></div>`;
+  $('#ov').hidden=false;sfx.win();
+  $('#again').onclick=()=>load(G.lv);const nx=$('#nxt');if(nx)nx.onclick=()=>load(G.lv+1);
+  $('#hint').textContent='';
+}
+
+/* kontroller */
+function go(i){if(i<0||i>=LEVELS.length||i===G.lv&&!G.done&&G.placed===0)return;if(G.placed>0&&!G.done&&!confirm('Bu seviyedeki ilerleme kaybolacak. Devam edilsin mi?'))return;load(i)}
+$('#prev').onclick=()=>go(G.lv-1);$('#next').onclick=()=>go(G.lv+1);
+$('#lvs').onclick=e=>{const b=e.target.closest('[data-i]');if(b)go(+b.dataset.i)};
+$('#rs').onclick=()=>{if(G.placed>0&&!G.done&&!confirm('Bu seviye baştan başlayacak. Devam edilsin mi?'))return;load(G.lv)};
+$('#snd').onclick=()=>{SAVE.sound=!SAVE.sound;store.set(KEY,SAVE);$('#snd').textContent=SAVE.sound?'🔊':'🔇'};
+$('#fs').onclick=()=>{const w=$('#wrap');document.fullscreenElement?document.exitFullscreen():(w.requestFullscreen&&w.requestFullscreen())};
+$('#snd').textContent=SAVE.sound?'🔊':'🔇';
+load(0);
+</script>
+</body>
+</html>
