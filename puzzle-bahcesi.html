@@ -351,7 +351,7 @@ function finish(){
   <div><span>Hız bonusu</span><span class="p">+${tb}</span></div>
   <div><span>Hatasız bonusu</span><span class="p">+${pb}</span></div>
   <div class="tot"><span>Toplam puan</span><span>${total}</span></div></div>
-  <div class="acts"><button class="btn sec" id="again">↻ Tekrar Oyna</button>${next?'<button class="btn" id="nxt">Sonraki Seviye →</button>':'<a class="btn" href="mouse-oyunlari.html">Oyunlara Dön</a>'}</div></div>`;
+  <div class="acts"><button class="btn sec" id="again">↻ Tekrar Oyna</button>${next?'<button class="btn" id="nxt">Sonraki Seviye →</button>':'<a class="btn" data-noconfirm href="mouse-oyunlari.html">Oyunlara Dön</a>'}</div></div>`;
   $('#ov').hidden=false;sfx.win();
   $('#again').onclick=()=>load(G.lv);const nx=$('#nxt');if(nx)nx.onclick=()=>load(G.lv+1);
   $('#hint').textContent='';
@@ -367,5 +367,6 @@ $('#fs').onclick=()=>{const w=$('#wrap');document.fullscreenElement?document.exi
 $('#snd').textContent=SAVE.sound?'🔊':'🔇';
 load(0);
 </script>
+<script src="mdg-shell.js" data-game="mouse-4"></script>
 </body>
 </html>

@@ -116,7 +116,7 @@ h1{font-size:clamp(32px,5vw,46px);font-weight:900;letter-spacing:-.02em;margin:6
     <div class="ov" id="over" hidden>
       <div class="panel"><div class="em">🎉</div><h2 id="ot">Süre doldu!</h2>
         <div class="big"><div><b id="os">0</b><small>PUANIN</small></div><div><b id="ob">0</b><small>EN İYİ</small></div></div>
-        <div class="acts"><button class="btn" id="again">Tekrar Oyna</button><a class="btn sec" href="mouse-oyunlari.html">Oyunlara Dön</a></div></div>
+        <div class="acts"><button class="btn" id="again">Tekrar Oyna</button><a class="btn sec" data-noconfirm href="mouse-oyunlari.html">Oyunlara Dön</a></div></div>
     </div>
   </div>
 </main>
@@ -192,5 +192,6 @@ function end(){
 
 $('#go').onclick=start;$('#again').onclick=start;$('#rs').onclick=start;
 </script>
+<script src="mdg-shell.js" data-game="mouse-3"></script>
 </body>
 </html>

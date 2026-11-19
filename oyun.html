@@ -65,6 +65,7 @@ canvas{display:block;width:100%;background:#fffdf7;touch-action:none;cursor:cros
 <div class="bar"><span>Puan: <b id="sc">0</b></span><span id="info"></span><button class="btn2" id="rs">↻ Yeniden Başlat</button></div>
 <div id="stage"></div>
 </main>
+<script src="mdg-shell.js"></script>
 <script>
 const Q=new URLSearchParams(location.search).get('g')||'mouse-1';
 if(Q==='mouse-1')location.replace('renkli-kareler.html');
@@ -85,7 +86,7 @@ const T=(f,ms)=>{const i=setInterval(f,ms);timers.push(i);return i},TO=(f,ms)=>{
 const stop=()=>{timers.forEach(i=>{clearInterval(i);clearTimeout(i)});timers=[];keyH=null};
 function timed(s){let t=s;info('⏱ '+t+' sn');T(()=>{t--;info('⏱ '+t+' sn');if(t<=0)end('Süre doldu!')},1000)}
 function end(msg){stop();let b=score;try{b=Math.max(score,+localStorage.getItem('b-'+Q)||0);localStorage.setItem('b-'+Q,b)}catch(e){}
-const o=document.createElement('div');o.className='ov';o.innerHTML=`<div><h2>${msg}</h2><p>Puanın: <b>${score}</b> · En iyi: <b>${b}</b></p><button class="btn" onclick="start()">Tekrar Oyna</button> <a class="btn2" href="${BACK}">Oyunlara Dön</a></div>`;st.appendChild(o)}
+const o=document.createElement('div');o.className='ov';o.innerHTML=`<div><h2>${msg}</h2><p>Puanın: <b>${score}</b> · En iyi: <b>${b}</b></p><button class="btn" onclick="start()">Tekrar Oyna</button> <a class="btn2" data-noconfirm href="${BACK}">Oyunlara Dön</a></div>`;st.appendChild(o)}
 document.addEventListener('keydown',e=>{if(keyH){if(e.key.startsWith('Arrow')||e.key==' ')e.preventDefault();keyH(e)}});
 const G={};
 
@@ -196,5 +197,5 @@ G['etk-4']=()=>quiz([
 {q:'Uzay boşluğunda kuyruğuyla ünlü gök cismi hangisidir?',o:['Kuyruklu yıldız','Asteroit','Gezegen','Uydu']}]);
 
 function start(){stop();st.innerHTML='';st.style.height='';setScore(0);info('');const f=G[Q];f?f():st.innerHTML='<div class="center"><h2>Oyun bulunamadı</h2><a class="btn" href="index.html">Anasayfa</a></div>'}
-$('#rs').onclick=start;start();
+$('#rs').onclick=start;if(window.MDG&&!MDG.started)document.addEventListener('mdg:continue',start,{once:true});else start();
 </script></body></html>
