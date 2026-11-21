@@ -249,6 +249,7 @@ if(Q==='mouse-1')location.replace('renkli-kareler.html');
 if(Q==='mouse-2')location.replace('kucuk-ressam.html');
 if(Q==='mouse-3')location.replace('balon-senligi.html');
 if(Q==='mouse-4')location.replace('puzzle-bahcesi.html');
+if(Q==='klavye-1')location.replace('meyve-sepeti.html');
 const $=s=>document.querySelector(s),R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,pick=a=>a[R(0,a.length-1)],
 shuf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]),norm=s=>s.toUpperCase().replace(/İ/g,'I');
 const META={'mouse-1':['Renkli Kareler','İstenen rengi bul ve tıkla!'],'mouse-2':['Küçük Ressam','Renk seç, fareyi basılı tutup çiz.'],'mouse-3':['Balon Şenliği','30 saniyede olabildiğince çok balon patlat!'],'mouse-4':['Puzzle Bahçesi','Parçaları kaydırarak sırala: 1’den 8’e.'],'mouse-5':['Tavşancık Koş!','Tavşanlara tıkla, tilkilere dokunma!'],'mouse-6':['Hafıza Kartları','Aynı meyve çiftlerini bul.'],
