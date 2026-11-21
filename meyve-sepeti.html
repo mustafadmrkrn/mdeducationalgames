@@ -68,14 +68,23 @@ button{font:inherit;color:inherit;cursor:pointer}
 #banner.on{animation:bn 1.8s ease-out forwards}
 @keyframes bn{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}15%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}80%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-70%) scale(1)}}
 /* başlangıç / sonuç */
-.ov{position:absolute;inset:0;z-index:30;display:grid;place-items:center;padding:16px;background:rgba(10,30,60,.28);backdrop-filter:blur(2px)}
-.start{text-align:center;max-width:720px}
+.ov{position:absolute;inset:0;z-index:30;display:flex;overflow:auto;padding:16px;background:rgba(10,30,60,.28);backdrop-filter:blur(2px)}
+.start{text-align:center;max-width:760px;margin:auto}
+.card{margin:auto}
 .start .big{font-size:clamp(26px,5.4vw,56px);font-weight:900;line-height:1.15;text-shadow:0 4px 0 rgba(0,0,0,.18),0 10px 30px rgba(0,0,0,.4)}
 .start kbd{display:inline-block;background:#fff;color:var(--navy);padding:.05em .45em;border-radius:.3em;box-shadow:0 .1em 0 #b8c4d6,0 6px 14px rgba(0,0,0,.3);margin:0 .1em;font-family:inherit}
 .start p{margin:16px auto 0;max-width:560px;font-size:clamp(15px,2.2vh,19px);font-weight:700;line-height:1.5;text-shadow:0 2px 8px rgba(0,0,0,.5)}
 .chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
 .chip{display:inline-flex;align-items:center;gap:8px;background:rgba(16,36,62,.6);backdrop-filter:blur(6px);border-radius:999px;padding:7px 16px;font-weight:800;font-size:14px}
 .chip i{width:14px;height:14px;border-radius:50%;background:var(--c);display:block;box-shadow:0 0 0 3px #fff}
+.tenf{margin-top:14px}
+.tenf h3{margin:0 0 8px;font-size:clamp(15px,2.4vh,19px);font-weight:900;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.kb{--k:clamp(22px,3.6vw,34px);display:inline-flex;flex-direction:column;gap:5px;background:rgba(16,36,62,.66);backdrop-filter:blur(6px);padding:12px 14px;border-radius:18px;box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.kr{display:flex;gap:5px}.kr:nth-child(2){margin-left:calc(var(--k)*.32)}.kr:nth-child(3){margin-left:calc(var(--k)*.7)}
+.kk{width:var(--k);height:calc(var(--k)*1.05);border-radius:8px;background:var(--fc);color:#fff;font-weight:900;font-size:calc(var(--k)*.44);display:grid;place-items:center;box-shadow:0 3px 0 rgba(0,0,0,.3)}
+.kk.dim{opacity:.3}
+.fing{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.fing .chip{padding:5px 12px;font-size:13px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:999px;font-weight:900;padding:15px 38px;font-size:20px;color:#fff;background:linear-gradient(#ff9a3d,#ff6a00);box-shadow:0 6px 0 #c24d00,0 14px 28px rgba(0,0,0,.35);transition:transform .12s,box-shadow .12s;text-decoration:none}
 .btn:hover{transform:translateY(-2px)}.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #c24d00}
 .btn.sec{background:linear-gradient(#5d7699,#3f5878);box-shadow:0 6px 0 #2a3d57,0 14px 28px rgba(0,0,0,.3);font-size:17px;padding:12px 28px}
@@ -159,6 +168,10 @@ button{font:inherit;color:inherit;cursor:pointer}
     <div class="start">
       <div class="big">Başlamak için <kbd>SPACE</kbd> tuşuna bas</div>
       <p>Düşen meyvenin üzerindeki harfi klavyede bul, Tuki sepetiyle yakalasın! Dokunarak da yakalayabilirsin.</p>
+      <div class="tenf"><h3>🖐️🖐️ On parmak yazma</h3>
+        <div class="kb" id="kb" aria-hidden="true"></div>
+        <div class="fing" id="fing"></div>
+        <p style="margin-top:12px;font-size:clamp(13px,2vh,16px)">Parmaklarını ana sıraya koy: <b>sol el A S D F</b>, <b>sağ el J K L Ş</b>. Harfler on parmak sırasıyla gelir; her harfe kendi renkteki parmağınla bas.</p></div>
       <div class="chips" id="chips"></div>
       <button class="btn" id="goBtn" type="button">▶ Başla</button>
     </div>
@@ -208,18 +221,20 @@ const HEART='<svg viewBox="0 0 32 30"><path d="M16 28C5 20 1 14 1 9 1 4 5 1 9 1c
 $('#hearts').innerHTML=HEART.repeat(3);
 
 /* ---------- oyun verisi ---------- */
-const LV_LET=['asdfjklş','ghertuiıop','qwyüğ','zxcvbnm','öç'];
+const LV_LET=['asdfjklş','ghi','qwertyuıopğü','zxcvbnmöç',''],LV_NAME=['Ana sıra','İşaret parmakları','Üst sıra','Alt sıra','Tüm harfler'];
+const ROWS=['qwertyuıopğü','asdfghjklşi','zxcvbnmöç'];
+const FIN={q:0,a:0,z:0,w:1,s:1,x:1,e:2,d:2,c:2,r:3,t:3,f:3,g:3,v:3,b:3,y:3,u:3,h:3,j:3,n:3,m:3,'ı':2,k:2,'ö':2,o:1,l:1,'ç':1,p:0,'ğ':0,'ü':0,'ş':0,i:0};
+const FC=['#ec4899','#a855f7','#3b82f6','#22c55e'],FN=['Serçe','Yüzük','Orta','İşaret'];
 const LV_FALL=[8.5,7.2,6.2,5.3,4.6],LV_INT=[2.6,2.2,1.9,1.6,1.4],LV_MAX=[3,4,4,5,5],PER=10,NLV=5;
 const FR=['apple','orange','banana','straw','grape','pear','cherry','lemon'];
-const LEFT=new Set('qwertasdfgzxcvb'.split(''));
 const up=c=>c.toLocaleUpperCase('tr');
 const S={state:'idle',level:1,score:0,hearts:3,hits:0,lvHits:0,wrong:0,miss:0,combo:0,maxCombo:0,playT:0,fruits:[],spawnT:0,fx:0,tx:0,W:0,H:0,sz:60,fw:0,fh:0,gy:0,t:0,id:0};
 window.__S=S;
 
 function pool(l){let p='';for(let i=0;i<l;i++)p+=LV_LET[i];return p}
 function pickLetter(){
-  const used=S.fruits.filter(f=>f.state==='fall').map(f=>f.ch),all=[...pool(S.level)],fresh=[...LV_LET[S.level-1]];
-  for(let k=0;k<12;k++){const src=(S.level>1&&Math.random()<.45)?fresh:all,c=src[Math.floor(Math.random()*src.length)];if(!used.includes(c))return c}
+  const used=S.fruits.filter(f=>f.state==='fall').map(f=>f.ch),all=[...(S.level>=NLV?ROWS.join(''):pool(S.level))],fresh=[...LV_LET[S.level-1]];
+  for(let k=0;k<12;k++){const src=(fresh.length&&S.level>1&&Math.random()<.5)?fresh:all,c=src[Math.floor(Math.random()*src.length)];if(!used.includes(c))return c}
   return all[Math.floor(Math.random()*all.length)];
 }
 function resize(){
@@ -249,12 +264,15 @@ function reset(){
   fox('');
 }
 function hud(){
-  $('#sc').textContent=S.score;$('#lvT').textContent=`Seviye ${S.level} / ${NLV}`;$('#lvB').style.width=(S.lvHits/PER*100)+'%';
+  $('#sc').textContent=S.score;$('#lvT').textContent=`Seviye ${S.level} / ${NLV} · ${LV_NAME[S.level-1]}`;$('#lvB').style.width=(S.lvHits/PER*100)+'%';
   const c=$('#combo');if(S.combo>=2){c.textContent='🔥 Seri x'+S.combo;c.classList.add('on')}else c.classList.remove('on');
   document.querySelectorAll('.hearts svg').forEach((h,i)=>h.classList.toggle('off',i>=S.hearts));
 }
 function chipsHTML(){
-  $('#chips').innerHTML=`<span class="chip"><i style="--c:var(--L)"></i>Sol el</span><span class="chip"><i style="--c:var(--R)"></i>Sağ el</span><span class="chip">Seviye 1 harfleri: ${[...LV_LET[0]].map(up).join(' ')}</span>${SAVE.best?`<span class="chip">🏆 En yüksek: ${SAVE.best}</span>`:''}`;
+  const cur=new Set(LV_LET[0]);
+  $('#kb').innerHTML=ROWS.map(r=>`<div class="kr">${[...r].map(c=>`<span class="kk${cur.has(c)?'':' dim'}" style="--fc:${FC[FIN[c]]}">${up(c)}</span>`).join('')}</div>`).join('');
+  $('#fing').innerHTML=FN.map((n,i)=>`<span class="chip"><i style="--c:${FC[i]}"></i>${n}</span>`).join('');
+  $('#chips').innerHTML=`<span class="chip">Yol haritası: ${LV_NAME.map((n,i)=>(i+1)+'. '+n).join(' → ')}</span>${SAVE.best?`<span class="chip">🏆 En yüksek: ${SAVE.best}</span>`:''}`;
 }
 let foxT=0;
 function fox(mode,ms=600){const f=$('#fox');f.classList.remove('happy','sad');if(mode)f.classList.add(mode);clearTimeout(foxT);if(mode)foxT=setTimeout(()=>f.classList.remove('happy','sad'),ms)}
@@ -271,7 +289,7 @@ function spawn(){
   const ch=pickLetter(),sz=S.sz,m=sz*.9+10;let x=0,ok=false;
   for(let k=0;k<10&&!ok;k++){x=m+Math.random()*(S.W-2*m);ok=S.fruits.every(f=>f.state!=='fall'||f.y>S.H*.28||Math.abs(f.x-x)>sz*1.5)}
   const el=document.createElement('div'),type=FR[Math.floor(Math.random()*FR.length)];
-  el.className='fruit';el.style.width=sz+'px';el.style.setProperty('--bf',(sz*.42)+'px');el.style.setProperty('--hand',LEFT.has(ch)?'var(--L)':'var(--R)');
+  el.className='fruit';el.style.width=sz+'px';el.style.setProperty('--bf',(sz*.42)+'px');el.style.setProperty('--hand',FC[FIN[ch]]);
   el.innerHTML=`<div class="fi"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#f-${type}"/></svg><span class="badge">${up(ch)}</span></div>`;
   const f={id:++S.id,el,ch,x,y:-sz*1.2,ph:Math.random()*6,state:'fall',vy:(S.gy+sz*1.2)/LV_FALL[S.level-1]};
   el.addEventListener('pointerdown',e=>{e.preventDefault();if(S.state==='play'&&f.state==='fall')catchFruit(f)});
@@ -341,7 +359,7 @@ function loop(ts){
 function levelDone(){
   if(S.level>=NLV){S.state='over';setTimeout(()=>finish(true),300);return}
   S.level++;S.lvHits=0;sfx.lvl();hud();
-  const b=$('#banner');b.innerHTML=`Seviye ${S.level}!<small>Yeni harfler: ${[...LV_LET[S.level-1]].map(up).join(' ')}</small>`;b.classList.remove('on');void b.offsetWidth;b.classList.add('on');
+  const b=$('#banner');b.innerHTML=`Seviye ${S.level}!<small>${LV_NAME[S.level-1]}${LV_LET[S.level-1]?' · yeni harfler: '+[...LV_LET[S.level-1]].map(up).join(' '):' · hepsi bir arada'}</small>`;b.classList.remove('on');void b.offsetWidth;b.classList.add('on');
   say('Seviye '+S.level);
 }
 
@@ -412,8 +430,8 @@ chipsHTML();resize();hud();requestAnimationFrame(loop);
       d: 'Hafıza Kartları’nda kartları çevirip aynı meyve çiftlerini bulursun. Kartların yerini aklında tut, en az hamlede tüm çiftleri eşleştir.',
       k: ['Hafıza', 'Dikkat', 'Eşleştirme'] },
     'klavye-1': { t: 'Meyve Sepeti', back: K, bg: ['#fed7aa', '#fde68a', '#bbf7d0'], main: '🧺', em: ['🍎', '🍌', '🍇', '🍓'],
-      d: 'Gökten düşen meyvelerin üzerindeki harfi klavyede bul ve tuşla; meyve sepetine düşsün. Harfleri hızlı ve doğru yazdıkça puanın artar.',
-      k: ['Harf tanıma', 'Klavye alışkanlığı', 'Hız'] },
+      d: 'Meyve Sepeti, on parmak klavye yazmayı eğlenerek öğretir. Parmaklarını ana sıraya yerleştir (sol el A S D F, sağ el J K L Ş) ve düşen meyvenin harfine kendi parmağınla bas. Harfler on parmak düzenine göre sırayla gelir: önce ana sıra, sonra üst sıra, sonra alt sıra.',
+      k: ['On parmak yazma', 'Harf tanıma', 'Hız ve doğruluk'] },
     'klavye-2': { t: 'Harf Yağmuru', back: K, bg: ['#bfdbfe', '#c7d2fe', '#e0e7ff'], main: '🌧️', em: ['💧', '☔', '💦', '⛈️'],
       d: 'Harf Yağmuru’nda gökten yağan harfler yere düşmeden onları klavyede tuşla. Yağmur hızlandıkça dikkatini topla ve en yüksek puana ulaş.',
       k: ['Parmak-klavye uyumu', 'Hız', 'Konsantrasyon'] },
